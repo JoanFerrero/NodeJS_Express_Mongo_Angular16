@@ -16,4 +16,11 @@ categorySchema.pre('save', function (next) {
     next();
 });
 
+categorySchema.methods.addProduct = function (productId) {
+    if(this.products.indexOf(productId) === -1) {
+        this.products.push(productId);
+    }
+    return this.safe();
+};
+
 module.exports = mongoose.model('Category', categorySchema);

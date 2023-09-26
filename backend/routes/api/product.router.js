@@ -1,7 +1,10 @@
 const router = require('express').Router()
 
-router.post('/')
-router.get('/')
+const productController = require('../../controllers/product.controller')
+
+
+router.post('/:slug', productController.create_product)
+router.get('/', productController.find_product)
 router.get('/category/:slug')
 router.get('/:slug')
 router.put('/:slug')
