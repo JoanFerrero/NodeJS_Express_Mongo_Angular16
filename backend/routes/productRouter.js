@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const productController = require('../../controllers/product.controller')
+const productController = require('../controllers/productController')
 
 
 router.post('/:slug', productController.create_product)

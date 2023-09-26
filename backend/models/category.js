@@ -16,6 +16,14 @@ categorySchema.pre('save', function (next) {
     next();
 });
 
+categorySchema.methods.toCategoryResponse = async function () {
+    return {
+        slug: this.slug,
+        category_name: this.category_name,
+        description: this.description
+    }
+}
+
 categorySchema.methods.addProduct = function (productId) {
     if(this.products.indexOf(productId) === -1) {
         this.products.push(productId);

@@ -1,5 +1,5 @@
-const Product = require('../models/product.model');
-const Category = require('../models/category.model');
+const Product = require('../models/product');
+const Category = require('../models/category');
 const asyncHandler = require('express-async-handler')
 
 exports.create_product = asyncHandler(async (req, res) => {
@@ -29,7 +29,9 @@ exports.create_product = asyncHandler(async (req, res) => {
     //No funciona method cambiar
     //await category.addProducts(newProduct._id)
 
-    res.json(newProduct);
+    return res.status(200).json({
+        product: await newProduct.toProductResponse()
+    });
 })
 
 exports.find_product = asyncHandler(async (req, res) => {
@@ -39,7 +41,11 @@ exports.find_product = asyncHandler(async (req, res) => {
         res.status(400).json({message: "There is no data"})
     }
 
-    res.json(products)
+    return await res.status(200).json({
+        product: await Promise.all(products.map(async product => {
+            return await product.toProductResponse();
+        }))
+    });
 })
 
 exports.delete_product = asyncHandler(async (req, res) => {

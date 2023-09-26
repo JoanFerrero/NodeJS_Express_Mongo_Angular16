@@ -13,7 +13,6 @@ import { SharedModule } from './shared/shared.module';
     FooterComponent
   ],
   imports: [
-    SharedModule,
     BrowserModule,
     AppRoutingModule
   ],

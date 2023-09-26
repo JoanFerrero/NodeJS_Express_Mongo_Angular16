@@ -1,4 +1,5 @@
-const Category = require('../models/category.model');
+const category = require('../models/category');
+const Category = require('../models/category');
 const asyncHandler = require('express-async-handler')
 
 exports.create_category = asyncHandler(async (req, res) => {
@@ -9,18 +10,26 @@ exports.create_category = asyncHandler(async (req, res) => {
     }
 
     const category = await Category.create({ category_name, description});
-    const new_category = await category.save()
-    res.json(new_category)
+    const new_category = await category.save();
+
+    return res.status(200).json({
+        category: await new_category.toCategoryResponse()
+    });
 })
 
 exports.find_category = asyncHandler(async (req, res) => {
     const categories = await Category.find()
 
-    if(categories.length === 0) {
-        res.status(400).json({message: "There is no data"})
-    }
-
-    res.json(categories)
+    if(!categories) {
+        return res.status(400).json({
+            message: "There is no data"
+        })
+    };
+    return await res.status(200).json({
+        category: await Promise.all(categories.map(async category => {
+            return await category.toCategoryResponse();
+        }))
+    });
 })
 
 exports.delete_category = asyncHandler(async (req, res) => {

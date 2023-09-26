@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ListCategoryComponent } from './list-category/list-category.component';
+import { ListProductsComponent } from './list-products/list-products.component';
 
 @NgModule({
   imports: [
@@ -13,9 +15,12 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   declarations: [
+    ListCategoryComponent,
+    ListProductsComponent
   ],
   exports: [
-
+    ListCategoryComponent,
+    ListProductsComponent
   ]
 })
 export class SharedModule {}

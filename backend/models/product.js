@@ -15,4 +15,12 @@ category_schema.pre('save', function (next) {
     next();
 });//pre
 
+category_schema.methods.toProductResponse = async function () {
+    return {
+        slug: this.slug,
+        product_name: this.product_name,
+        product_price: this.product_price
+    }
+}
+
 module.exports = mongoose.model('Product_1', category_schema);

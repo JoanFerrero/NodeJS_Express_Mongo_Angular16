@@ -6,7 +6,7 @@ const cors = require("cors");
 const connectdb = require("../config/config_db")
 
 var corsOptions = {
-    origin: "http://localhost:4200"
+    origin: process.env.CORSURL || "http://localhost:4200"
 };
 
 dotenv.config();
@@ -15,8 +15,11 @@ const app = express();
 connectdb();
 app.use(cors(corsOptions));
 app.use(express.json());
-require('../models/index');
-app.use(require("../routes/index"));
+
+app.use('/api/categories', require('../routes/categoryRoutes'))
+app.use('/api/products', require('../routes/productRouter'))
+
+
 app.listen(PORT, () => {
     console.log(`The app is in 127.0.0.1:${PORT}`);
 })//listen
