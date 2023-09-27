@@ -22,4 +22,9 @@ export class ApiService {
     return this.http.get(`${environment.api_url}${path}`)
       .pipe(catchError(this.formatErrors));
   }
+
+  getProducts(path: string, slug: string): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}${slug}`)
+      .pipe(catchError(this.formatErrors));
+  }
 }

@@ -48,6 +48,26 @@ exports.find_product = asyncHandler(async (req, res) => {
     });
 })
 
+exports.find_products_category = async (req, res) => {
+    const { slug } = req.params;
+
+    const category = await Category.findOne({slug}).exec();
+
+    if(!category) {
+        return res.status(401).json({
+            message: "Category Not Forund"
+        })
+    }
+
+    return await res.status(200).json({
+        product: await Promise.all(category.products.map(async productId => {
+            const productObj = await Product.findById(productId).exec();
+            return await productObj.toProductResponse();
+        }))
+    });
+}
+  
+
 exports.delete_product = asyncHandler(async (req, res) => {
     
 })

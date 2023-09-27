@@ -1,5 +1,8 @@
-<h1>Categories</h1>
-<div class="col-md-4" *ngFor="let product of products">
-  <h4>{{product.product_name}}</h4>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-12 col-lg-4 mb-4 mb-lg-0" *ngFor="let product of products">
+      <app-card-product [value]="product"></app-card-product>
+    </div>
+  </div>
 </div>
 

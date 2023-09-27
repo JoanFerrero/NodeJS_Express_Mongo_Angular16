@@ -15,4 +15,9 @@ export class ProductService {
     return this.apiService
       .get('/products');
   }
+
+  getProductsCategory(slug: string): Observable<{product: Product[]}> {
+    return this.apiService
+      .getProducts('/products/category/', slug);
+  }
 }

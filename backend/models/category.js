@@ -12,7 +12,9 @@ const categorySchema = new mongoose.Schema({
 categorySchema.plugin(uniqueValidator, { msg: "already taken" });
 
 categorySchema.pre('save', function (next) {
-    this.slug = slugify(this.category_name, { lower: true, replacement: '-'});
+    if(!this.slug){
+        this.slug = slugify(this.category_name, { lower: true, replacement: '-'});
+    }
     next();
 });
 
