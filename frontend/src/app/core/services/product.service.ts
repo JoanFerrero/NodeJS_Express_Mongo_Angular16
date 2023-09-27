@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-
-import { Category } from '../models';
+import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class ProductService {
   constructor (
     private apiService: ApiService
   ) {}
 
-  getCategories(): Observable<{category: Category[]}> {
+  getProducts(): Observable<{product: Product[]}> {
     return this.apiService
-      .get('/categories');
+      .get('/products');
   }
 }
