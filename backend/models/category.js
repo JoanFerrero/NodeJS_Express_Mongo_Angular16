@@ -34,7 +34,7 @@ categorySchema.methods.addProduct = function (productId) {
     return this.save();
 };
 
-articleSchema.methods.removeProduct = function (productId) {
+categorySchema.methods.removeProduct = function (productId) {
     if(this.products.indexOf(productId) !== -1){
         this.products.remove(productId);
     }

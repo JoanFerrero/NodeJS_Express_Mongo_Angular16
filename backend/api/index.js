@@ -19,7 +19,6 @@ app.use(express.json());
 app.use('/api/categories', require('../routes/categoryRoutes'))
 app.use('/api/products', require('../routes/productRouter'))
 
-
 app.listen(PORT, () => {
     console.log(`The app is in 127.0.0.1:${PORT}`);
 })//listen
