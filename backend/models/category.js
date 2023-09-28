@@ -22,15 +22,23 @@ categorySchema.methods.toCategoryResponse = async function () {
     return {
         slug: this.slug,
         category_name: this.category_name,
-        description: this.description
+        description: this.description,
+        products: this.products
     }
 }
 
 categorySchema.methods.addProduct = function (productId) {
-    if(this.products.indexOf(productId) === -1) {
+    if(this.products.indexOf(productId) === -1){
         this.products.push(productId);
     }
-    return this.safe();
+    return this.save();
+};
+
+articleSchema.methods.removeProduct = function (productId) {
+    if(this.products.indexOf(productId) !== -1){
+        this.products.remove(productId);
+    }
+    return this.save();
 };
 
 module.exports = mongoose.model('Category', categorySchema);

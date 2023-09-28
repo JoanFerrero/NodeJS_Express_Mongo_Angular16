@@ -11,9 +11,9 @@ exports.create_product = asyncHandler(async (req, res) => {
         res.status(400).json({message: "All data is required"});
     }
 
-    const category = await Category.findOne({slug}).exec();
+    const categoryFind = await Category.findOne({slug}).exec();
 
-    if(!category) {
+    if(!categoryFind) {
         return res.status(401).json({
             message: "Category Not Forund"
         })
@@ -24,9 +24,9 @@ exports.create_product = asyncHandler(async (req, res) => {
         product_price
     });
 
-    await Category.updateOne({ slug: slug}, {$push: {products: newProduct._id}});
+    //await Category.updateOne({ slug: slug}, {$push: {products: newProduct._id}});
 
-    //No funciona method cambiar
+    await categoryFind.addProduct(newProduct._id)
     //await category.addProducts(newProduct._id)
 
     return res.status(200).json({

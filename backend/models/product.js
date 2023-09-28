@@ -11,7 +11,9 @@ const category_schema = new mongoose.Schema({
 category_schema.plugin(uniqueValidator, { msg: "already taken" });
 
 category_schema.pre('save', function (next) {
-    this.slug = slugify(this.product_name, { lower: true, replacement: '-'});
+    if(!this.slug){
+        this.slug = slugify(this.product_name, { lower: true, replacement: '-'});
+    }
     next();
 });//pre
 
