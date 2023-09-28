@@ -2,27 +2,29 @@ const mongoose = require('mongoose')
 const slugify = require('slugify')
 const uniqueValidator = require('mongoose-unique-validator');
     
-const category_schema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     slug: {type: String, lowercase: true, unique: true},
     product_name: {type: String, require: true},
-    product_price: {type: Number, require: true}
+    product_price: {type: Number, require: true},
+    product_img: {type: String, require: true},
 });
 
-category_schema.plugin(uniqueValidator, { msg: "already taken" });
+productSchema.plugin(uniqueValidator, { msg: "already taken" });
 
-category_schema.pre('save', function (next) {
+productSchema.pre('save', function (next) {
     if(!this.slug){
         this.slug = slugify(this.product_name, { lower: true, replacement: '-'});
     }
     next();
 });//pre
 
-category_schema.methods.toProductResponse = async function () {
+productSchema.methods.toProductResponse = async function () {
     return {
         slug: this.slug,
         product_name: this.product_name,
-        product_price: this.product_price
+        product_price: this.product_price,
+        product_img: this.product_img
     }
 }
 
-module.exports = mongoose.model('Product_1', category_schema);
+module.exports = mongoose.model('Product_1', productSchema);

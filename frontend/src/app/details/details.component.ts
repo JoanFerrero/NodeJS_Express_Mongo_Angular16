@@ -17,7 +17,7 @@ export class DetailsComponent implements OnInit{
 
   ngOnInit(): void {
     const slug: any = this.ActivatedRoute.snapshot.paramMap.get('slug');
-    this.getProduct(slug)
+    this.getProduct(slug);
   }
 
   getProduct(slug: string) {

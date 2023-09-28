@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+
 import { ListCategoryComponent } from './list-category/list-category.component';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { CardProductComponent } from './card-product/card-product.component';
@@ -13,7 +15,8 @@ import { CardProductComponent } from './card-product/card-product.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    InfiniteScrollModule
   ],
   declarations: [
     ListCategoryComponent,

@@ -12,8 +12,8 @@ export class CategoryService {
     private apiService: ApiService
   ) {}
 
-  getCategories(): Observable<{category: Category[]}> {
+  getCategories(params: any): Observable<{category: Category[]}> {
     return this.apiService
-      .get('/categories');
+      .get('/categories', params);
   }
 }

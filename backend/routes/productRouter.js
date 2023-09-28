@@ -8,6 +8,6 @@ router.get('/', productController.find_product)
 router.get('/category/:slug', productController.find_products_category)
 router.get('/:slug', productController.findOneProduct)
 router.put('/:slug')
-router.delete(':/slug')
+router.delete('/:slug', productController.delete_product)
 
 module.exports = router;

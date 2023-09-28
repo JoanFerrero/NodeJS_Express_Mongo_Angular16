@@ -5,6 +5,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const categorySchema = new mongoose.Schema({
     slug: {type: String, lowercase: true, unique: true},
     category_name: {type: String, require: true},
+    category_img: {type: String, require: true},
     description: {type: String, require: true},
     products: [{ type: mongoose.Schema.Types.ObjectId, red: "Product" }]
 });
@@ -22,6 +23,7 @@ categorySchema.methods.toCategoryResponse = async function () {
     return {
         slug: this.slug,
         category_name: this.category_name,
+        category_img: this.category_img,
         description: this.description,
         products: this.products
     }

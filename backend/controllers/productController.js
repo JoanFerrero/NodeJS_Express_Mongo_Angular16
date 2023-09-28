@@ -3,11 +3,11 @@ const Category = require('../models/category');
 const asyncHandler = require('express-async-handler')
 
 exports.create_product = asyncHandler(async (req, res) => {
-    const { product_name, product_price} = req.body;
+    const { product_name, product_img, product_price} = req.body;
 
     const { slug } = req.params;
     
-    if(!product_name || !product_price) {
+    if(!product_name || !product_img || !product_price) {
         return res.status(400).json({
             message: "All data is required"
         });
@@ -23,10 +23,11 @@ exports.create_product = asyncHandler(async (req, res) => {
 
     const newProduct =  await Product.create({
         product_name,
-        product_price
+        product_price,
+        product_img
     });
 
-    await categoryFind.addProduct(newProduct._id)
+    await categoryFind.addProduct(newProduct._id);
 
     return res.status(200).json({
         product: await newProduct.toProductResponse()
@@ -63,7 +64,7 @@ exports.findOneProduct = asyncHandler(async (req, res) => {
     });
 })
 
-exports.find_products_category = async (req, res) => {
+exports.find_products_category = asyncHandler(async (req, res) => {
     const { slug } = req.params;
 
     const category = await Category.findOne({slug}).exec();
@@ -80,9 +81,23 @@ exports.find_products_category = async (req, res) => {
             return await productObj.toProductResponse();
         }))
     });
-}
+})
   
 
 exports.delete_product = asyncHandler(async (req, res) => {
-    
+    const { slug } = req.params;
+
+    const product = await Product.findOne({slug: slug}).exec();
+
+    if(!product) {
+        return res.status(401).json({
+            message: "Product Not Forund"
+        })
+    }
+
+    //await categoryFind.removeProduct(product._id)
+    await Product.deleteOne({slug: slug})
+    res.status(200).json({
+        message: "Product succesfully deleted!"
+    })
 })
