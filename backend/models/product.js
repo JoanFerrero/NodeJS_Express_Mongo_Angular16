@@ -27,4 +27,11 @@ productSchema.methods.toProductResponse = async function () {
     }
 }
 
+productSchema.methods.toCarouselResponse = async function () {
+    return {
+        slug: this.slug,
+        img: this.product_img
+    }
+}
+
 module.exports = mongoose.model('Product_1', productSchema);

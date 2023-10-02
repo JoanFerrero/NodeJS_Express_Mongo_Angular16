@@ -29,6 +29,13 @@ categorySchema.methods.toCategoryResponse = async function () {
     }
 }
 
+categorySchema.methods.toCarouselResponse = async function () {
+    return {
+        slug: this.slug,
+        img: this.category_img
+    }
+}
+
 categorySchema.methods.addProduct = function (productId) {
     if(this.products.indexOf(productId) === -1){
         this.products.push(productId);
