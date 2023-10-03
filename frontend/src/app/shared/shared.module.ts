@@ -8,6 +8,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { ListCategoryComponent } from './list-category/list-category.component';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { CardProductComponent } from './card-product/card-product.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { CardProductComponent } from './card-product/card-product.component';
   declarations: [
     ListCategoryComponent,
     ListProductsComponent,
-    CardProductComponent
+    CardProductComponent,
+    CarouselComponent
   ],
   exports: [
     ListCategoryComponent,
