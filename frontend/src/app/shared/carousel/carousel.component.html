@@ -1,1 +1,13 @@
-<p>carousel works!</p>
+<mdb-carousel [controls]="true" [indicators]="true" [animation]="'slide'" [interval]="0" *ngIf="carouselI.length">
+  <mdb-carousel-item *ngFor="let carousel of carouselI">
+    <img
+      src="../../../assets/img/{{carousel.img}}.jpg"
+      class="d-block w-50"
+    />
+    <div class="carousel-caption d-none d-md-block">
+      <h5>Nombre</h5>
+    </div>
+
+  </mdb-carousel-item>
+</mdb-carousel>
+

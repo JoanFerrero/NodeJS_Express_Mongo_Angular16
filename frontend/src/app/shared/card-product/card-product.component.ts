@@ -8,5 +8,4 @@ import { Product } from 'src/app/core';
 })
 export class CardProductComponent {
   @Input() value: Product = {} as Product;
-  
 }
