@@ -8,16 +8,21 @@ import { CarouselService, Carousel } from 'src/app/core';
 })
 export class CarouselComponent {
   @Input() page: string = '';
-  carouselI: Carousel[] = [];
+  @Input() slug: string = '';
+  home: Boolean = false;
+  carouselI: any;
 
   constructor (
     private carouselService: CarouselService
   ) {}
 
   ngOnInit(): void {
+    console.log(this.home)
     if(this.page === 'home') {
+      this.home = true
       this.getCategoryImg()
     } else if(this.page === 'details') {
+      this.home = false
       this.getProductImg()
     }
   }
@@ -26,14 +31,13 @@ export class CarouselComponent {
     this.carouselService.getCarouselCategory()
       .subscribe(data => {
         this.carouselI = data.category
-        console.log(data)
       })
   }
 
   getProductImg() {
-    this.carouselService.getCarouselProduct()
+    this.carouselService.getCarouselProduct(this.slug)
     .subscribe(data => {
-      this.carouselI = data.product
+      this.carouselI = data.product.img
     })
   }
 

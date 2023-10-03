@@ -3,19 +3,18 @@ const Product = require('../models/product')
 const asyncHandler = require('express-async-handler');
 
 exports.find_carousel_product = asyncHandler(async (req, res) => {
+    const { slug } = req.params;
 
-    const products = await Product.find({})
+    const productOne = await Product.findOne({slug}).exec();
 
-    if(products.length === 0) {
+    if(productOne.length === 0) {
         return res.status(400).json({
             message: "There is no data"
         })
     };
 
-    return await res.status(200).json({
-        product: await Promise.all(products.map(async product => {
-            return await product.toCarouselResponse();
-        }))
+    return res.status(200).json({
+        product: await productOne.toCarouselResponse()
     });
 })
 

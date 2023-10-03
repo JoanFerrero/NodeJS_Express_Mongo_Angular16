@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
     slug: {type: String, lowercase: true, unique: true},
     product_name: {type: String, require: true},
     product_price: {type: Number, require: true},
-    product_img: {type: String, require: true},
+    product_img: [String]
 });
 
 productSchema.plugin(uniqueValidator, { msg: "already taken" });
