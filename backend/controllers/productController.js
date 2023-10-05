@@ -3,11 +3,11 @@ const Category = require('../models/category');
 const asyncHandler = require('express-async-handler')
 
 exports.create_product = asyncHandler(async (req, res) => {
-    const { product_name, product_img, product_price} = req.body;
+    const { product_name, product_img, product_price, id_category} = req.body;
 
     const { slug } = req.params;
     
-    if(!product_name || !product_img || !product_price) {
+    if(!product_name || !product_img || !product_price || !id_category) {
         return res.status(400).json({
             message: "All data is required"
         });
@@ -24,7 +24,8 @@ exports.create_product = asyncHandler(async (req, res) => {
     const newProduct =  await Product.create({
         product_name,
         product_price,
-        product_img
+        product_img,
+        id_category
     });
 
     await categoryFind.addProduct(newProduct._id);
@@ -41,10 +42,18 @@ exports.find_product = asyncHandler(async (req, res) => {
     };
 
     let name = transUndefined(req.query.name, "");
+    let min_price = transUndefined(req.query.min_price, 0);
+    let max_price = transUndefined(req.query.max_price, Number.MAX_SAFE_INTEGER);
+    let categoryName = transUndefined(req.query.category, "");
     let nameReg = new RegExp(name);
 
     query = {
-        product_name: { $regex: nameReg }
+        product_name: { $regex: nameReg },
+        $and: [{ product_price: { $gte: min_price } }, { product_price: { $lte: max_price } }],
+    }
+
+    if(categoryName) {
+        query.id_category = categoryName;
     }
 
     const products = await Product.find(query);

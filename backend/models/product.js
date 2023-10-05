@@ -6,7 +6,8 @@ const productSchema = new mongoose.Schema({
     slug: {type: String, lowercase: true, unique: true},
     product_name: {type: String, require: true},
     product_price: {type: Number, require: true},
-    product_img: [String]
+    product_img: [String],
+    id_category: {type: String, require: true}
 });
 
 productSchema.plugin(uniqueValidator, { msg: "already taken" });
@@ -23,7 +24,8 @@ productSchema.methods.toProductResponse = async function () {
         slug: this.slug,
         product_name: this.product_name,
         product_price: this.product_price,
-        product_img: this.product_img
+        product_img: this.product_img,
+        id_category: this.id_category
     }
 }
 

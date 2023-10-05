@@ -1,0 +1,21 @@
+<section id="sidebar">
+    <div>
+        <h6 class="p-1 border-bottom">Price max</h6>
+        <ul class="list-group">
+            <input type="number" [(ngModel)]="max_price" min="0">
+        </ul>
+        <h6 class="p-1 border-bottom">Price min</h6>
+        <ul class="list-group">
+            <input type="number" [(ngModel)]="min_price" min="0">
+        </ul>
+        <h6 class="p-1 border-bottom">Category</h6>
+        <ul class="list-group">
+            <select name="select" (change)="filter_products()" [(ngModel)]="cat_slug">
+                <option disabled value="1" selected >Categry</option>
+                <option *ngFor="let category of listCategories" [value]="category.slug">{{category.category_name}}</option>
+            </select>
+        </ul>
+        <button (click)="filter_products()">Filtrar</button>
+        <button (click)="remove_all()">Borrar</button>
+    </div>
+</section>

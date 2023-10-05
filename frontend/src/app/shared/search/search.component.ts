@@ -21,10 +21,10 @@ export class SearchComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private Router: Router,
-    private ActivatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private Location: Location
   ) {
-    this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+    this.routeFilters = this.activatedRoute.snapshot.paramMap.get('filters');
   }
 
   ngOnInit(): void {
@@ -39,9 +39,7 @@ export class SearchComponent implements OnInit {
   }
 
   private checkTime(writtingValue: any) {
-
     let isShop: string = this.Router.url.split('/')[1];
-
     setTimeout(() => {
       if (writtingValue === this.search) {
         if (isShop === 'shop') {
@@ -62,7 +60,7 @@ export class SearchComponent implements OnInit {
   }
 
   public notNamefilters() {
-    this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+    this.routeFilters = this.activatedRoute.snapshot.paramMap.get('filters');
     if (this.routeFilters !== null) {
       this.filters = JSON.parse(atob(this.routeFilters));
     }
@@ -77,8 +75,8 @@ export class SearchComponent implements OnInit {
   }
 
   public type_event(writtingValue: any): void {
-    this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters'); 
+    this.routeFilters = this.activatedRoute.snapshot.paramMap.get('filters'); 
     this.search = writtingValue;
-    this.checkTime(writtingValue)
+    this.checkTime(writtingValue);
   }
 }

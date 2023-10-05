@@ -23,7 +23,7 @@ export class ApiService {
       .pipe(catchError(this.formatErrors));
   }
 
-  getProduct(path: string, slug: string): Observable<any> {
+  getNormal(path: string, slug: string): Observable<any> {
     return this.http.get(`${environment.api_url}${path}${slug}`)
       .pipe(catchError(this.formatErrors));
   }

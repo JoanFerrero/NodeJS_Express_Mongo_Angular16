@@ -24,16 +24,16 @@ export class ProductService {
 
   getProductsName(search: string): Observable<{product: Product[]}> {
     return this.apiService
-      .getProduct('/products/name/', search);
+      .getNormal('/products/name/', search);
   }
 
   getProductsCategory(slug: string): Observable<{product: Product[]}> {
     return this.apiService
-      .getProduct('/products/category/', slug);
+      .getNormal('/products/category/', slug);
   }
 
   getProduct(slug: string): Observable<{product: Product}> {
     return this.apiService
-      .getProduct('/products/', slug)
+      .getNormal('/products/', slug)
   }
 }

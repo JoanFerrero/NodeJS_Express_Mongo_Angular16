@@ -16,4 +16,9 @@ export class CategoryService {
     return this.apiService
       .get('/categories', params);
   }
+
+  getAllCategories(): Observable<{category: Category[]}> {
+    return this.apiService
+      .get('/categories');
+  }
 }

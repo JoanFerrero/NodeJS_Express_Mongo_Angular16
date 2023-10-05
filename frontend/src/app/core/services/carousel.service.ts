@@ -19,6 +19,6 @@ export class CarouselService {
 
   getCarouselProduct(slug: string): Observable<{product: Carousel}> {
     return this.apiService
-      .getProduct('/carousel/product/', slug);
+      .getNormal('/carousel/product/', slug);
   }
 }

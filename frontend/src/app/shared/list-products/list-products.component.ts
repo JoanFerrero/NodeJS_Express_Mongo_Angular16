@@ -1,5 +1,5 @@
 import { Component, OnInit, Input  } from '@angular/core';
-import { ProductService, Product, Filters } from 'src/app/core';
+import { ProductService, Product, Filters, Category, CategoryService } from 'src/app/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -16,6 +16,7 @@ export class ListProductsComponent {
 
   constructor (
     private productService: ProductService,
+    private categoryService: CategoryService,
     private ActivatedRoute: ActivatedRoute,
     private Location: Location
   ) {}
@@ -47,6 +48,7 @@ export class ListProductsComponent {
     this.filters = filters;
     this.productService.getProductsFilter(filters)
       .subscribe(data => {
+        console.log(data)
         this.products = data.product;
       })
   }
