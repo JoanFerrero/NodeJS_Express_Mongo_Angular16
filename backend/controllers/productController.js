@@ -35,12 +35,22 @@ exports.create_product = asyncHandler(async (req, res) => {
 })
 
 exports.find_product = asyncHandler(async (req, res) => {
-    //let query = {};
+    let query = {};
+    let transUndefined = (varQuery, otherResult) => {
+        return varQuery != "undefined" && varQuery ? varQuery : otherResult;
+    };
 
-    const products = await Product.find()
+    let name = transUndefined(req.query.name, "");
+    let nameReg = new RegExp(name);
+
+    query = {
+        product_name: { $regex: nameReg }
+    }
+
+    const products = await Product.find(query);
 
     if(products.length === 0) {
-        res.status(400).json({message: "There is no data"})
+        res.status(200).json({message: "There is no data"})
     }
 
     return await res.status(200).json({

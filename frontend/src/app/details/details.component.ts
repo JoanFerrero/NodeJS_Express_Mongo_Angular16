@@ -8,7 +8,7 @@ import { ProductService, Product } from 'src/app/core';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit{
-  product?: Product;
+  product?: any;
 
   constructor (
     private ActivatedRoute: ActivatedRoute,

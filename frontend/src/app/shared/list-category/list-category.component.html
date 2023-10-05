@@ -5,7 +5,7 @@ infiniteScroll
 (scrolled)="onScroll()">
   <div class="row row-cols-3 g-3">
     <div class="col" *ngFor="let category of categories">
-      <div class="card" [routerLink]="['/shop/', category.slug]">
+      <div class="card" [routerLink]="['/shop/category/', category.slug]">
         <img src="../../../assets/img/{{category.category_img}}.jpg"
           class="man-vh-100"/>
         <div class="card-body">
