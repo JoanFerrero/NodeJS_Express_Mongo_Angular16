@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductService, Product } from 'src/app/core';
+import { ProductService, Product, Filters } from 'src/app/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListProductsComponent {
   slug_Category: string | any;
+  routeFilters: string | any;
   constructor (
     private productService: ProductService,
     private ActivatedRoute: ActivatedRoute
@@ -18,20 +19,31 @@ export class ListProductsComponent {
 
   ngOnInit(): void {
     this.slug_Category = this.ActivatedRoute.snapshot.paramMap.get('slug');
-    if(this.slug_Category) {
-      this.productService.getProductsCategory(this.slug_Category)
-      .subscribe(data => {
-        this.products = data.product;
-      })
-    } else {
-      this.runProducts();
-    }
+    this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+    this.runProducts();
   }
 
   runProducts() {
-    this.productService.getProducts()
-      .subscribe(data => {
-        this.products = data.product;
-      })
+    if(this.slug_Category) {
+      this.productService.getProductsCategory(this.slug_Category)
+        .subscribe(data => {
+          this.products = data.product;
+        })
+    } else if(this.routeFilters !== null) {
+      this.productService.getProducts()
+        .subscribe(data => {
+          this.products = data.product;
+        })
+    } else {
+      this.productService.getProducts()
+        .subscribe(data => {
+          this.products = data.product;
+        })
+    }
   }
+
+  get_list_filtered(filters: Filters) {
+    console.log(filters)
+  }
+  
 }

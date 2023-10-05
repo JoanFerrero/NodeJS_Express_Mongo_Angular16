@@ -17,7 +17,6 @@ export class CarouselComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.home)
     if(this.page === 'home') {
       this.home = true
       this.getCategoryImg()

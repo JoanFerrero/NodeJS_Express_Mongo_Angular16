@@ -1,0 +1,3 @@
+
+<input type="text" list="search" class="input" name="txt" [(ngModel)]="search_value"
+        (input)="type_event($any($event.target).value)" (change)="search_event(this)" >

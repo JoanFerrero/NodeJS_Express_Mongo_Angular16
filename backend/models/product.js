@@ -34,4 +34,10 @@ productSchema.methods.toCarouselResponse = async function () {
     }
 }
 
+productSchema.methods.toNameJSONFor = function () {
+    return {
+      name: this.product_name,
+    };
+};
+
 module.exports = mongoose.model('Product_1', productSchema);

@@ -35,6 +35,8 @@ exports.create_product = asyncHandler(async (req, res) => {
 })
 
 exports.find_product = asyncHandler(async (req, res) => {
+    //let query = {};
+
     const products = await Product.find()
 
     if(products.length === 0) {
@@ -81,6 +83,21 @@ exports.find_products_category = asyncHandler(async (req, res) => {
             return await productObj.toProductResponse();
         }))
     });
+})
+
+exports.find_product_name = asyncHandler(async (req, res) => {
+    let search = new RegExp(req.params.search);
+
+    const product = await Product.find({ product_name: { $regex: search } });
+
+    if(!product) {
+        return res.status(401).json({
+            message: "Product Not Found"
+        })
+    }
+
+    res.json(product.map((product) => product.toNameJSONFor()));
+
 })
   
 

@@ -10,6 +10,7 @@ import { ListCategoryComponent } from './list-category/list-category.component';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { CardProductComponent } from './card-product/card-product.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CarouselComponent } from './carousel/carousel.component';
     ListCategoryComponent,
     ListProductsComponent,
     CardProductComponent,
-    CarouselComponent
+    CarouselComponent,
+    SearchComponent
   ],
   exports: [
     ListCategoryComponent,

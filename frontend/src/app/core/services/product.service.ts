@@ -16,12 +16,17 @@ export class ProductService {
       .get('/products');
   }
 
+  getProductsName(search: string): Observable<{product: Product[]}> {
+    return this.apiService
+      .getProduct('/products/name/', search);
+  }
+
   getProductsCategory(slug: string): Observable<{product: Product[]}> {
     return this.apiService
       .getProduct('/products/category/', slug);
   }
 
-  getProduct(slug: string): Observable<{product: Product[]}> {
+  getProduct(slug: string): Observable<{product: Product}> {
     return this.apiService
       .getProduct('/products/', slug)
   }
