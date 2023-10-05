@@ -17,7 +17,7 @@ export class ProductService {
       .get('/products');
   }
 
-  getProductsFilter(params: any): Observable<{product: Product[]}> {
+  getProductsFilter(params: any): Observable<{product: Product[], product_count: number}> {
     return this.apiService
       .get('/products', params)
   }

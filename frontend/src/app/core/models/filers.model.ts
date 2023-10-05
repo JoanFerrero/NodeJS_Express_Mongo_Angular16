@@ -3,4 +3,6 @@ export class Filters {
   category?: string;
   max_price?: number;
   min_price?: number;
+  limit?: number;
+  offset?: number;
 }

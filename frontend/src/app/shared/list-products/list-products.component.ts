@@ -13,6 +13,9 @@ export class ListProductsComponent {
   routeFilters: string | any;
 
   filters = new Filters();
+  currentPage: number = 1;
+  limit: number = 3;
+  totalPages: Array<number> = [];
 
   constructor (
     private productService: ProductService,
@@ -48,7 +51,7 @@ export class ListProductsComponent {
     this.filters = filters;
     this.productService.getProductsFilter(filters)
       .subscribe(data => {
-        console.log(data)
+        this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
         this.products = data.product;
       })
   }
@@ -60,6 +63,21 @@ export class ListProductsComponent {
     }else{
       this.filters = new Filters();
     }
+  }
+
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+
+    if (this.limit) {
+      this.filters.limit = this.limit;
+      this.filters.offset = this.limit * (this.currentPage - 1);
+    }
+
+    this.filters.limit = this.limit;
+    this.filters.offset = this.limit * (this.currentPage - 1);
+
+    this.Location.replaceState('/shop/' + btoa(JSON.stringify(this.filters)));
+    this.get_list_filtered(this.filters)
   }
   
 }

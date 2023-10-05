@@ -45,6 +45,8 @@ exports.find_product = asyncHandler(async (req, res) => {
     let min_price = transUndefined(req.query.min_price, 0);
     let max_price = transUndefined(req.query.max_price, Number.MAX_SAFE_INTEGER);
     let categoryName = transUndefined(req.query.category, "");
+    let limit = transUndefined(req.query.limit, 0);
+    let offset = transUndefined(req.query.offset, 0);
     let nameReg = new RegExp(name);
 
     query = {
@@ -56,7 +58,8 @@ exports.find_product = asyncHandler(async (req, res) => {
         query.id_category = categoryName;
     }
 
-    const products = await Product.find(query);
+    const products = await Product.find(query).limit(Number(limit)).skip(Number(offset));
+    const product_count = await Product.find(query).countDocuments();
 
     if(products.length === 0) {
         res.status(200).json({message: "There is no data"})
@@ -65,7 +68,7 @@ exports.find_product = asyncHandler(async (req, res) => {
     return await res.status(200).json({
         product: await Promise.all(products.map(async product => {
             return await product.toProductResponse();
-        }))
+        })),  product_count: product_count
     });
 })
 
