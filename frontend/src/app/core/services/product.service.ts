@@ -27,11 +27,6 @@ export class ProductService {
       .getNormal('/products/name/', search);
   }
 
-  getProductsCategory(slug: string): Observable<{product: Product[]}> {
-    return this.apiService
-      .getNormal('/products/category/', slug);
-  }
-
   getProduct(slug: string): Observable<{product: Product}> {
     return this.apiService
       .getNormal('/products/', slug)

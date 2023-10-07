@@ -30,6 +30,7 @@ export class FiltersComponent {
 
   ngOnInit(): void {
     this.getCategory()
+    this.filtersPrint()
   }
 
   getCategory() {
@@ -64,6 +65,13 @@ export class FiltersComponent {
     this.filters.min_price = this.min_price == 0 || this.min_price == null ? undefined : this.min_price;
   
     this.checkTime(this.filters)
+  }
+
+  filtersPrint() {
+    let routeFilters = JSON.parse(atob(this.activatedRoute.snapshot.paramMap.get('filters') || ''));
+    this.min_price = routeFilters.min_price;
+    this.max_price = routeFilters.max_price;
+    this.cat_slug = routeFilters.category || '';
   }
 
   private checkTime(filter: Filters) {

@@ -18,25 +18,25 @@ export class CarouselComponent {
 
   ngOnInit(): void {
     if(this.page === 'home') {
-      this.home = true
-      this.getCategoryImg()
+      this.home = true;
+      this.getCategoryImg();
     } else if(this.page === 'details') {
-      this.home = false
-      this.getProductImg()
+      this.home = false;
+      this.getProductImg();
     }
   }
 
   getCategoryImg() {
     this.carouselService.getCarouselCategory()
       .subscribe(data => {
-        this.carouselI = data.category
+        this.carouselI = data.category;
       })
   }
 
   getProductImg() {
     this.carouselService.getCarouselProduct(this.slug)
     .subscribe(data => {
-      this.carouselI = data.product.img
+      this.carouselI = data.product.img;
     })
   }
 

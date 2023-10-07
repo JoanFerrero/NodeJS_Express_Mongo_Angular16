@@ -9,6 +9,7 @@ import { ProductService, Product } from 'src/app/core';
 })
 export class DetailsComponent implements OnInit{
   product?: any;
+  slug: string | any;
 
   constructor (
     private ActivatedRoute: ActivatedRoute,
@@ -16,8 +17,8 @@ export class DetailsComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    const slug: any = this.ActivatedRoute.snapshot.paramMap.get('slug');
-    this.getProduct(slug);
+    this.slug = this.ActivatedRoute.snapshot.paramMap.get('slug');
+    this.getProduct(this.slug);
   }
 
   getProduct(slug: string) {

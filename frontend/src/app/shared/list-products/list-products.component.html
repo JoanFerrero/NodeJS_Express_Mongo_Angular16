@@ -11,13 +11,15 @@
     </div>
   </div>
 </div>
-<ul class="pagination d-flex justify-content-center">
+<ul class="pagination d-flex justify-content-center" *ngIf="products && totalPages.length != 1">
   <li class="page-item">
     <a *ngIf="currentPage != 1" class="page-link" aria-label="Previous" (click)="setPage(currentPage - 1)">
       <span aria-hidden="true">&laquo;</span>
     </a>
   </li>
-  <li class="page-item" (click)="setPage(currentPage)"><a class="page-link">{{currentPage}}</a></li>
+  <li class="page-item" [ngClass]="{'active': pageNumber === currentPage}" *ngFor="let pageNumber of totalPages" (click)="setPage(pageNumber)">
+    <a class="page-link">{{pageNumber}}</a>
+  </li>
   <li class="page-item">
     <a *ngIf="currentPage != totalPages[totalPages.length-1]" class="page-link" aria-label="Next" (click)="setPage(currentPage + 1)">
       <span aria-hidden="true">&raquo;</span>

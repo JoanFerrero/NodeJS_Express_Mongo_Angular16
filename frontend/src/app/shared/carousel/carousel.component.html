@@ -1,4 +1,4 @@
-<mdb-carousel [controls]="true" [indicators]="true" [animation]="'slide'" [interval]="0" *ngIf="carouselI.length">
+<mdb-carousel [controls]="true" [indicators]="true" [animation]="'slide'" [interval]="0" *ngIf="carouselI">
   <mdb-carousel-item *ngFor="let carousel of carouselI">
     <img
       src="../../../assets/img/{{carousel.img}}.jpg"

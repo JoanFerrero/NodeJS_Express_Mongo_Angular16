@@ -32,12 +32,20 @@ export class ListProductsComponent {
     this.runProducts();
   }
 
+  getPagination() {
+    this.filters.limit = this.limit;
+    this.filters.offset = this.limit * (this.currentPage - 1);
+  }
+
   runProducts() {
+    this.getPagination()
     if(this.slug_Category !== null) {
-      console.log(this.slug_Category)
-      this.productService.getProductsCategory(this.slug_Category)
+      this.filters.category = this.slug_Category;
+      this.productService.getProductsFilter(this.filters)
         .subscribe(data => {
+          console.log(data)
           this.products = data.product;
+          this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
         })
     } else if(this.routeFilters !== null) {
       this.refresRouteFilter();
@@ -49,10 +57,13 @@ export class ListProductsComponent {
 
   get_list_filtered(filters: Filters) {
     this.filters = filters;
+    this.getPagination()
     this.productService.getProductsFilter(filters)
       .subscribe(data => {
-        this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
         this.products = data.product;
+        if(data.product) {
+          this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
+        }
       })
   }
 
@@ -72,9 +83,6 @@ export class ListProductsComponent {
       this.filters.limit = this.limit;
       this.filters.offset = this.limit * (this.currentPage - 1);
     }
-
-    this.filters.limit = this.limit;
-    this.filters.offset = this.limit * (this.currentPage - 1);
 
     this.Location.replaceState('/shop/' + btoa(JSON.stringify(this.filters)));
     this.get_list_filtered(this.filters)
