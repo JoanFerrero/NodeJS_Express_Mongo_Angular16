@@ -56,13 +56,15 @@ export class ListProductsComponent {
   }
 
   get_list_filtered(filters: Filters) {
-    this.filters = filters;
-    this.getPagination()
+    this.filters = {...this.filters, ...filters};
+    console.log(this.filters)
     this.productService.getProductsFilter(filters)
       .subscribe(data => {
         this.products = data.product;
+        console.log(data.product)
         if(data.product) {
           this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
+          console.log(this.totalPages)
         }
       })
   }
@@ -75,17 +77,4 @@ export class ListProductsComponent {
       this.filters = new Filters();
     }
   }
-
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-
-    if (this.limit) {
-      this.filters.limit = this.limit;
-      this.filters.offset = this.limit * (this.currentPage - 1);
-    }
-
-    this.Location.replaceState('/shop/' + btoa(JSON.stringify(this.filters)));
-    this.get_list_filtered(this.filters)
-  }
-  
 }

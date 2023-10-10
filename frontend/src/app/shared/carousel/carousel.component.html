@@ -1,10 +1,11 @@
-<mdb-carousel [controls]="true" [indicators]="true" [animation]="'slide'" [interval]="0" *ngIf="carouselI">
+<mdb-carousel [controls]="true" [indicators]="false" [animation]="'slide'" [interval]="0" *ngIf="carouselI">
   <mdb-carousel-item *ngFor="let carousel of carouselI">
-    <img
+    <a routerLink="/shop/category/{{carousel.slug}}"*ngIf="home">
+      <img
       src="../../../assets/img/{{carousel.img}}.jpg"
       class="d-block w-50"
-      *ngIf="home"
     />
+    </a>
     <img
       src="../../../assets/img/{{carousel}}.jpg"
       class="d-block w-50"

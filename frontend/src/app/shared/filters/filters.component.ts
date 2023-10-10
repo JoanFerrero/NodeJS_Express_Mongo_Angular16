@@ -16,6 +16,8 @@ export class FiltersComponent {
   listCategories: Category[] = [];
   cat_slug: string = "";
   routeFilters: string | null;
+  conditionProduct: Array<any> = [];
+  selected_state: string = "";
 
   filters: Filters = new Filters();
 
@@ -29,8 +31,18 @@ export class FiltersComponent {
   }
 
   ngOnInit(): void {
+    this.generateCondition()
     this.getCategory()
     this.filtersPrint()
+  }
+
+  public generateCondition() {
+    this.conditionProduct = [
+      {id: 1, name: 'New'},
+      {id: 2, name: 'Semi new'},
+      {id: 3, name: 'Good condition'},
+      {id: 4, name: 'Bad condition'}
+    ]
   }
 
   getCategory() {
@@ -63,9 +75,13 @@ export class FiltersComponent {
 
     this.filters.max_price = this.max_price ? this.max_price : undefined;
     this.filters.min_price = this.min_price == 0 || this.min_price == null ? undefined : this.min_price;
+    this.filters.limit = 3;
+    this.filters.offset = 3 * (1 - 1);
   
     this.checkTime(this.filters)
   }
+
+  
 
   filtersPrint() {
     let routeFilters = JSON.parse(atob(this.activatedRoute.snapshot.paramMap.get('filters') || ''));

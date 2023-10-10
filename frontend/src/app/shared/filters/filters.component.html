@@ -15,6 +15,13 @@
                 <option *ngFor="let category of listCategories" [value]="category.slug">{{category.category_name}}</option>
             </select>
         </ul>
+        <h6 class="p-1 border-bottom">State</h6>
+        <ul class="list-group">
+            <select name="select" [(ngModel)]="selected_state">
+                <option disabled value="" selected ></option>
+                <option *ngFor="let condicion of conditionProduct" [value]="condicion.id">{{condicion.name}}</option>
+            </select>
+        </ul>
         <button (click)="filter_products()">Filtrar</button>
         <button (click)="remove_all()">Borrar</button>
     </div>

@@ -70,6 +70,8 @@ export class SearchComponent implements OnInit {
   public search_event(data: any): void {
     if (typeof data.search_value === 'string') {
       this.filters.name = data.search_value;
+      this.filters.limit = 3;
+      this.filters.offset = 3 * (1 - 1);
       this.Router.navigate(['/shop/' + btoa(JSON.stringify(this.filters))]);
     }
   }
