@@ -29,12 +29,12 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.filters_route();
-    this.search_value = this.filters.name || undefined;
   }
 
   public filters_route() {
     if (this.routeFilters !== null) {
       this.filters = JSON.parse(atob(this.routeFilters));
+      this.search_value = this.filters.name || undefined;
     }
   }
 

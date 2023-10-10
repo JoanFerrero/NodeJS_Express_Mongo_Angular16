@@ -19,10 +19,23 @@ export class PaginationComponent {
   filters = new Filters();
   currentPage: number = 1;
   limit: number = 3;
+  offsetPage: any = 0
 
   constructor (
-    private Location: Location
+    private Location: Location,
+    private activatedRoute: ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+    this.routeFilters = this.activatedRoute.snapshot.paramMap.get('filters');
+    if(this.routeFilters != null) {
+      this.filters = JSON.parse(atob(this.routeFilters));
+      if(this.filters.offset) {
+        this.offsetPage = this.filters.offset
+        this.currentPage = (this.offsetPage / 3) + 1
+      }
+    }
+  }
 
   setPage(pageNumber: number) {
     this.currentPage = pageNumber;

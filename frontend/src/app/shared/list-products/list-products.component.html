@@ -10,5 +10,6 @@
       <app-card-product [value]="product"></app-card-product>
     </div>
   </div>
+  <p *ngIf="!products">There are no products</p>
 </div>
 <app-pagination (filterEvent)="get_list_filtered($event)" [totalPages]="totalPages" [products]="products"></app-pagination>

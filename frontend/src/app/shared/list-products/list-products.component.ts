@@ -43,7 +43,6 @@ export class ListProductsComponent {
       this.filters.category = this.slug_Category;
       this.productService.getProductsFilter(this.filters)
         .subscribe(data => {
-          console.log(data)
           this.products = data.product;
           this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
         })
@@ -58,13 +57,11 @@ export class ListProductsComponent {
   get_list_filtered(filters: Filters) {
     this.filters = {...this.filters, ...filters};
     console.log(this.filters)
-    this.productService.getProductsFilter(filters)
+    this.productService.getProductsFilter(this.filters)
       .subscribe(data => {
         this.products = data.product;
-        console.log(data.product)
         if(data.product) {
           this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);
-          console.log(this.totalPages)
         }
       })
   }
