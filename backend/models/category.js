@@ -3,10 +3,23 @@ const slugify = require('slugify')
 const uniqueValidator = require('mongoose-unique-validator');
     
 const categorySchema = new mongoose.Schema({
-    slug: {type: String, lowercase: true, unique: true},
-    category_name: {type: String, require: true},
-    category_img: {type: String, require: true},
-    description: {type: String, require: true},
+    slug: {
+        type: String, 
+        lowercase: true, 
+        unique: true
+    },
+    category_name: {
+        type: String, 
+        require: true
+    },
+    category_img: {
+        type: String, 
+        require: true
+    },
+    description: {
+        type: String, 
+        require: true
+    },
     products: [{ type: mongoose.Schema.Types.ObjectId, red: "Product" }]
 });
 

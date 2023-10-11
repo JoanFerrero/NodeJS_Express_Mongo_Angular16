@@ -3,11 +3,24 @@ const slugify = require('slugify')
 const uniqueValidator = require('mongoose-unique-validator');
     
 const productSchema = new mongoose.Schema({
-    slug: {type: String, lowercase: true, unique: true},
-    product_name: {type: String, require: true},
-    product_price: {type: Number, require: true},
+    slug: {
+        type: String, 
+        lowercase: true, 
+        unique: true
+    },
+    product_name: {
+        type: String, 
+        require: true
+    },
+    product_price: {
+        type: Number, 
+        require: true
+    },
     product_img: [String],
-    id_category: {type: String, require: true}
+    id_category: {
+        type: String, 
+        require: true
+    }
 });
 
 productSchema.plugin(uniqueValidator, { msg: "already taken" });

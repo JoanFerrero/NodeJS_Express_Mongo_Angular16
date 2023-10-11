@@ -3,7 +3,8 @@ const userController = require('../controllers/userController')
 const verifyJWT = require('../middleware/verifyJWT')
 
 router.post('/register', userController.registerUser);
-router.post('/login', userController.loginUser)
-router.get('/user', verifyJWT, userController.getUser)
+router.post('/login', userController.loginUser);
+router.get('/user', verifyJWT, userController.getUser);
+router.put('/user/update', verifyJWT, userController.updateUser);
 
 module.exports = router;
