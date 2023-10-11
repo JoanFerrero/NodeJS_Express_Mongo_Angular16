@@ -53,7 +53,23 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
     if (!match) return res.status(401).json({ message: 'Unauthorized: Wrong password' });
 
-    res.status(200).json({
+    return res.status(200).json({
         user: userExist.toUserResponse()
     });
 });
+
+exports.getUser = asyncHandler(async (req, res) => {
+    const email = req.userEmail;
+
+    const userExist = await User.findOne({ email: email });
+
+    if(!userExist) {
+        return res.status(401).json({
+            message: "User not exist"
+        });
+    };
+
+    return res.status(200).json({
+        user: userExist.toUserResponse()
+    });
+})
