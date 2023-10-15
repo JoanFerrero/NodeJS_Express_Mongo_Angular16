@@ -13,6 +13,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { SearchComponent } from './search/search.component';
 import { FiltersComponent } from './filters/filters.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ShowAuthedDirective } from './show-authed.directive';
 
 
 @NgModule({
@@ -32,13 +33,15 @@ import { PaginationComponent } from './pagination/pagination.component';
     CarouselComponent,
     SearchComponent,
     FiltersComponent,
-    PaginationComponent
+    PaginationComponent,
+    ShowAuthedDirective
   ],
   exports: [
     ListCategoryComponent,
     ListProductsComponent,
     CardProductComponent,
-    CarouselComponent
+    CarouselComponent,
+    ShowAuthedDirective
   ]
 })
 export class SharedModule {}

@@ -23,6 +23,23 @@ export class ApiService {
       .pipe(catchError(this.formatErrors));
   }
 
+  put(path: string, body: Object = {}): Observable<any> {
+    return this.http.put(
+      `${environment.api_url}${path}`,
+      JSON.stringify(body)
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  post(path: string, body: Object = {}): Observable<any> {
+    return this.http.post(`${environment.api_url}${path}`, body).pipe(catchError(this.formatErrors));
+  }
+
+  delete(path: any): Observable<any> {
+    return this.http.delete(
+      `${environment.api_url}${path}`
+    ).pipe(catchError(this.formatErrors));
+  }
+
   getNormal(path: string, slug: string): Observable<any> {
     return this.http.get(`${environment.api_url}${path}${slug}`)
       .pipe(catchError(this.formatErrors));
