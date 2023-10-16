@@ -19,7 +19,6 @@ export class HeaderComponent {
   ngOnInit() {
     this.userService.currentUser.subscribe(
       (userData) => {
-        console.log(userData)
         this.currentUser = userData;
         this.cd.markForCheck();
       }

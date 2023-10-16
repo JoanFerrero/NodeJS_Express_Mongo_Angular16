@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { map ,  distinctUntilChanged } from 'rxjs/operators';
 import { User } from '../models';
+import { Token } from '@angular/compiler';
 
 
 
@@ -23,12 +24,9 @@ export class UserService {
     private jwtService: JwtService
   ) {}
 
-    // Verify JWT in localstorage with server & load user's info.
-  // This runs once on application startup.
   populate() {
-    // If JWT detected, attempt to get & store user's info
     const token = this.jwtService.getToken();
-    if (token) {
+    if (this.jwtService.getToken()) {
       this.apiService.get("/user").subscribe(
         (data) => {
           return this.setAuth({ ...data.user, token });
@@ -36,26 +34,19 @@ export class UserService {
         (err) => this.purgeAuth()
       );
     } else {
-      // Remove any potential remnants of previous auth states
       this.purgeAuth();
     }
   }
 
   setAuth(user: User) {
-    // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
-    // Set current user data into observable
     this.currentUserSubject.next(user);
-    // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
   }
 
   purgeAuth() {
-    // Remove JWT from localstorage
     this.jwtService.destroyToken();
-    // Set current user to an empty object
     this.currentUserSubject.next({} as User);
-    // Set auth status to false
     this.isAuthenticatedSubject.next(false);
   }
 
@@ -77,10 +68,9 @@ export class UserService {
 
   update(user: User): Observable<User> {
     return this.apiService
-    .put('/user', user )
+    .put('/user', { user } )
     .pipe(map(
       data => {
-      // Update the currentUser observable
       this.currentUserSubject.next(data.user);
       return data.user;
     }));

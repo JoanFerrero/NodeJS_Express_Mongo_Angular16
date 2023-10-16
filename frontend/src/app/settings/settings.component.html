@@ -5,19 +5,20 @@
         <h1 class="text-xs-center">Your Settings</h1>
         <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
-
-            <fieldset class="form-group">
-              <input class="form-control"
-                type="text"
-                placeholder="URL of profile picture"
-                formControlName="image" />
-            </fieldset>
-
-            <fieldset class="form-group">
+            
+            <fieldset class="form-group" disabled>
               <input class="form-control form-control-lg"
                 type="text"
                 placeholder="Username"
-                formControlName="username" />
+                formControlName="username" 
+                />
+            </fieldset>
+
+            <fieldset class="form-group" disabled>
+              <input class="form-control form-control-lg"
+                type="email"
+                placeholder="Email"
+                formControlName="email" />
             </fieldset>
 
             <fieldset class="form-group">
@@ -29,10 +30,10 @@
             </fieldset>
 
             <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                type="email"
-                placeholder="Email"
-                formControlName="email" />
+              <input class="form-control"
+                type="text"
+                placeholder="URL of profile picture"
+                formControlName="image" />
             </fieldset>
 
             <fieldset class="form-group">
@@ -49,15 +50,6 @@
 
           </fieldset>
         </form>
-
-        <!-- Line break for logout button -->
-        <hr />
-
-        <button class="btn btn-outline-danger"
-          >
-          Or click here to logout.
-        </button>
-
       </div>
     </div>
   </div>

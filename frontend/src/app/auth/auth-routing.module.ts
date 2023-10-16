@@ -1,18 +1,18 @@
-import { NgModule, inject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthComponent } from './auth.component';
-import { NoAuthGuard } from './no-auth-guard.service';
+import { NoAuthGuard } from '../core/guard';
 
 const routes: Routes = [
   {
     path: 'login',
     component: AuthComponent,
-    //canActivate: [(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(NoAuthGuard).canActivate()]
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'register',
     component: AuthComponent,
-    //canActivate: [NoAuthGuard]
+    canActivate: [NoAuthGuard]
   }
 ];
 

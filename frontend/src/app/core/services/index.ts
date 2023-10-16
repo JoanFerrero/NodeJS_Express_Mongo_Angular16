@@ -4,4 +4,4 @@ export * from './product.service';
 export * from './carousel.service';
 export * from './user.service';
 export * from './jwt.service';
-export * from './auth-guard.service';
+export * from '../guard/auth-guard.service';

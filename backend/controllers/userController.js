@@ -33,7 +33,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 });
 
 exports.loginUser = asyncHandler(async (req, res) => {
-    const { email, password} = req.body;
+    const { email, password } = req.body;
 
     if(!email || !password) {
         return req.status(400).json({
@@ -75,23 +75,28 @@ exports.getUser = asyncHandler(async (req, res) => {
 });
 
 exports.updateUser = asyncHandler(async (req, res) => {
-    const { bio, image } = req.body;
+    const { user } = req.body;
 
     const email = req.userEmail;    
 
-    const user = await User.findOne({ email }).exec();
+    const target = await User.findOne({ email }).exec();
+
+    if (user.password) {
+        const hashedPwd = await bcrypt.hash(user.password, 10);
+        target.password = hashedPwd;
+    }
 
     if(typeof user.bio !== 'undefined') {
-        user.bio = bio;
+        target.bio = user.bio;
     };
 
     if(typeof user.image !== 'undefined') {
-        user.image = image;
+        target.image = user.image;
     };
 
-    await user.save();
+    await target.save();
 
     return res.status(200).json({
-        user: user.toUserResponse()
+        user: target.toUserResponse()
     });
 });

@@ -16,7 +16,7 @@ export class ShowAuthedDirective implements OnInit {
     private viewContainer: ViewContainerRef
   ) {}
 
-  condition: boolean = true;
+  condition!: boolean;
 
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
@@ -31,7 +31,6 @@ export class ShowAuthedDirective implements OnInit {
   }
 
   @Input() set appShowAuthed(condition: boolean) {
-    console.log(condition)
     this.condition = condition;
   }
 
