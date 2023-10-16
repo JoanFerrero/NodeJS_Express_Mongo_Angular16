@@ -21,7 +21,6 @@ export class SettingsComponent implements OnInit {
     private fb: FormBuilder,
     private cd: ChangeDetectorRef
   ) {
-    // create form group using the form builder
     this.settingsForm = this.fb.group({
       image: '',
       username: '',
@@ -29,15 +28,10 @@ export class SettingsComponent implements OnInit {
       email: '',
       password: ''
     });
-    // Optional: subscribe to changes on the form
-    // this.settingsForm.valueChanges.subscribe(values => this.updateUser(values));
   }
 
   ngOnInit() {
-    console.log('settings')
-    // Make a fresh copy of the current user's object to place in editable form fields
     Object.assign(this.user, this.userService.getCurrentUser());
-    // Fill the form
     this.settingsForm.patchValue(this.user);
   }
 
@@ -49,8 +43,6 @@ export class SettingsComponent implements OnInit {
 
   submitForm() {
     this.isSubmitting = true;
-    console.log(this.settingsForm.value)
-    // update the model
     this.updateUser(this.settingsForm.value);
 
     this.userService

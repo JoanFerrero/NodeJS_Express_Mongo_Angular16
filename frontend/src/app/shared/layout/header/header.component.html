@@ -11,7 +11,7 @@
       <a class="nav-item nav-link" routerLink="home">Home</a>
       <a class="nav-item nav-link" routerLink="shop">Shop</a>
       <a class="nav-item nav-link" routerLink="settings">Settings</a>
-      <a href="">
+      <a routerLink="home">
         <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" *ngIf="currentUser.image" class="user-pic" alt="user image" />
         {{ currentUser.username }}
       </a>
