@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Error, UserService } from '../core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth-page',
@@ -20,7 +21,8 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private ToastrService: ToastrService
   ) {
     this.authForm = this.fb.group({
       'email': ['', Validators.required],
@@ -45,9 +47,15 @@ export class AuthComponent implements OnInit {
     console.log(credentials)
     this.userService
       .attemptAuth(this.authType, credentials)
-      .subscribe((date) => {
-        this.router.navigateByUrl('/')
-      }
-      );
+      .subscribe({
+        next: data => {
+          this.ToastrService.success("Loged succesfully");
+          this.router.navigateByUrl('/');
+        },
+        error: e => {
+          this.ToastrService.error("Please try again, data incorrect");
+          this.isSubmitting = false;
+        }
+    });
   }
 }
