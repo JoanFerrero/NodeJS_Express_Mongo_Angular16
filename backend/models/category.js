@@ -20,7 +20,7 @@ const categorySchema = new mongoose.Schema({
         type: String, 
         require: true
     },
-    products: [{ type: mongoose.Schema.Types.ObjectId, red: "Product" }]
+    products: [{ type: mongoose.Schema.Types.ObjectId, red: "Product_1" }]
 });
 
 categorySchema.plugin(uniqueValidator, { msg: "already taken" });

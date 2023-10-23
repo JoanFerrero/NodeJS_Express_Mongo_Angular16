@@ -22,7 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     SharedModule,
     AuthModule,
     ToastrModule.forRoot({
-      timeOut: 2500, // 2.5 seconds
+      timeOut: 2500,
       closeButton: true,
       positionClass: 'toast-top-right',
       preventDuplicates: true,

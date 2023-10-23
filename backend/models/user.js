@@ -52,4 +52,13 @@ userSchema.methods.toUserResponse = function() {
     }
 };
 
+userSchema.methods.toProfileJSON = function (user) {
+    return {
+        username: this.username,
+        bio: this.bio,
+        image: this.image,
+        //following: user ? user.isFollowing(this._id) : false
+    }
+};
+
 module.exports = mongoose.model('User', userSchema);

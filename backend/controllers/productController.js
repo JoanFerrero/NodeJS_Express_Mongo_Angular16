@@ -122,6 +122,9 @@ exports.find_product_name = asyncHandler(async (req, res) => {
 
 })
   
+exports.update_product = asyncHandler(async (req, es) => {
+    
+})
 
 exports.delete_product = asyncHandler(async (req, res) => {
     const { slug } = req.params;
