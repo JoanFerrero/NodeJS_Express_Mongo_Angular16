@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
         type: String, 
         default: ""
     },
+    favouriteProduct: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product_1'
+    }],
     image: {
         type: String,
         default: "https://static.productionready.io/images/smiley-cyrus.jpg"
@@ -59,6 +63,34 @@ userSchema.methods.toProfileJSON = function (user) {
         image: this.image,
         //following: user ? user.isFollowing(this._id) : false
     }
+};
+
+userSchema.methods.favorite = function (id) {
+    if(this.favouriteProduct.indexOf(id) === -1){
+        this.favouriteProduct.push(id);
+    }
+
+    // const article = await Article.findById(id).exec();
+    //
+    // article.favouritesCount += 1;
+    //
+    // await article.save();
+
+    return this.save();
+}
+
+userSchema.methods.unfavorite = function (id) {
+    if(this.favouriteProduct.indexOf(id) !== -1){
+        this.favouriteProduct.remove(id);
+    }
+
+    // const article = await Article.findById(id).exec();
+    //
+    // article.favouritesCount -= 1;
+    //
+    // await article.save();
+
+    return this.save();
 };
 
 module.exports = mongoose.model('User', userSchema);

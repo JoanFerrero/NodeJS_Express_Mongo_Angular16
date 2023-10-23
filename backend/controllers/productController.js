@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const User = require('../models/user');
 const Category = require('../models/category');
 const asyncHandler = require('express-async-handler')
 
@@ -122,10 +123,6 @@ exports.find_product_name = asyncHandler(async (req, res) => {
 
 })
   
-exports.update_product = asyncHandler(async (req, es) => {
-    
-})
-
 exports.delete_product = asyncHandler(async (req, res) => {
     const { slug } = req.params;
 
@@ -141,5 +138,65 @@ exports.delete_product = asyncHandler(async (req, res) => {
     await Product.deleteOne({slug: slug})
     res.status(200).json({
         message: "Product succesfully deleted!"
+    })
+})
+
+exports.favoriteProduct = asyncHandler(async (req, res) => {
+    const userId = req.userId;
+
+    const { slug } = req.params;
+
+    const loginUser = await User.findById(userId).exec();
+
+    if(!loginUser) {
+        return res.status(401).json({
+            message: "User Not Found"
+        })
+    }
+
+    const product = await Product.findOne({slug: slug}).exec();
+
+    if(!product) {
+        return res.status(401).json({
+            message: "Product Not Found"
+        })
+    }
+
+    await loginUser.favorite(product._id);
+
+    const updatedProduct = await product.updateFavoriteCount();
+
+    return res.status(401).json({
+        product: await updatedProduct.toProductResponse()
+    })
+})
+
+exports.unfavoriteProduct = asyncHandler(async (req, res) => {
+    const userId = req.userId;
+
+    const { slug } = req.params;
+
+    const loginUser = await User.findById(userId).exec();
+
+    if(!loginUser) {
+        return res.status(401).json({
+            message: "User Not Found"
+        })
+    }
+
+    const product = await Product.findOne({slug: slug}).exec();
+
+    if(!product) {
+        return res.status(401).json({
+            message: "Product Not Found"
+        })
+    }
+
+    await loginUser.unfavorite(product._id);
+
+    const updatedProduct = await product.updateFavoriteCount();
+
+    return res.status(401).json({
+        product: await updatedProduct.toProductResponse()
     })
 })

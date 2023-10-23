@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const slugify = require('slugify')
 const uniqueValidator = require('mongoose-unique-validator');
+const User = require('./user')
     
 const productSchema = new mongoose.Schema({
     slug: {
@@ -44,12 +45,24 @@ productSchema.pre('save', function (next) {
     next();
 });//pre
 
+productSchema.methods.updateFavoriteCount = async function () {
+    const favoriteCount = await User.count({
+        favouriteProduct: {$in: [this._id]}
+    });
+
+    this.favouritesCount = favoriteCount;
+
+    return this.save();
+}
+
 productSchema.methods.toProductResponse = async function () {
     return {
         slug: this.slug,
         product_name: this.product_name,
         product_price: this.product_price,
         product_img: this.product_img,
+        favouritesCount: this.favouritesCount,
+        comments: this.comments,
         id_category: this.id_category
     }
 }
