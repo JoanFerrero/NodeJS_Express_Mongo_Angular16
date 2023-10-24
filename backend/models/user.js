@@ -52,6 +52,7 @@ userSchema.methods.toUserResponse = function() {
         email: this.email,
         bio: this.bio,
         image: this.image,
+        favouriteProduct: this.favouriteProduct,
         token: this.generateAccessToken()
     }
 };
@@ -69,13 +70,6 @@ userSchema.methods.favorite = function (id) {
     if(this.favouriteProduct.indexOf(id) === -1){
         this.favouriteProduct.push(id);
     }
-
-    // const article = await Article.findById(id).exec();
-    //
-    // article.favouritesCount += 1;
-    //
-    // await article.save();
-
     return this.save();
 }
 
@@ -83,14 +77,17 @@ userSchema.methods.unfavorite = function (id) {
     if(this.favouriteProduct.indexOf(id) !== -1){
         this.favouriteProduct.remove(id);
     }
-
-    // const article = await Article.findById(id).exec();
-    //
-    // article.favouritesCount -= 1;
-    //
-    // await article.save();
-
     return this.save();
 };
+
+userSchema.methods.isFavourite = function (id) {
+    const idStr = id.toString();
+    for (const article of this.favouriteProduct) {
+        if (article.toString() === idStr) {
+            return true;
+        }
+    }
+    return false;
+}
 
 module.exports = mongoose.model('User', userSchema);

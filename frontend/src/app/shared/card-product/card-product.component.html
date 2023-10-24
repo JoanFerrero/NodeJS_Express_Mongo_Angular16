@@ -1,9 +1,14 @@
 
-<div class="card mt-2" [routerLink]="['/details/', value.slug]">
+<div class="card mt-2" >
   <div class="card-body">
-    <div class="d-flex justify-content-between mb-3">
-      <h5 class="mb-0">{{value.product_name}}</h5>
+    <div class="d-flex justify-content-between mb-2">
+      <h5 class="mb-0" [routerLink]="['/details/', value.slug]">{{value.product_name}}</h5>
       <h5 class="text-dark mb-0">{{value.product_price}} €</h5>
+    </div>
+    <div class="d-flex justify-content-end">
+      <h5>{{numLike}}</h5>
+      <i *ngIf="value.favorited" (click)="toggleFavorite()" style='color:red;' class="bi bi-heart-fill"></i>
+      <i *ngIf="!value.favorited" (click)="toggleFavorite()" style='color:gray;' class="bi bi-heart-fill"></i>
     </div>
   </div>
 </div>

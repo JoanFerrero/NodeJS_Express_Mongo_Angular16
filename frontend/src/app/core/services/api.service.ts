@@ -35,9 +35,7 @@ export class ApiService {
   }
 
   delete(path: any): Observable<any> {
-    return this.http.delete(
-      `${environment.api_url}${path}`
-    ).pipe(catchError(this.formatErrors));
+    return this.http.delete(`${environment.api_url}${path}`).pipe(catchError(this.formatErrors));
   }
 
   getNormal(path: string, slug: string): Observable<any> {

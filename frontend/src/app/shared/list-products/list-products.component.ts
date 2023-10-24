@@ -59,6 +59,7 @@ export class ListProductsComponent {
     console.log(this.filters)
     this.productService.getProductsFilter(this.filters)
       .subscribe(data => {
+        console.log(data)
         this.products = data.product;
         if(data.product) {
           this.totalPages = Array.from(new Array(Math.ceil(data.product_count/this.limit)), (val, index) => index + 1);

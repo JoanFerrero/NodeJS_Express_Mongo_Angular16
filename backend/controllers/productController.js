@@ -38,6 +38,7 @@ exports.create_product = asyncHandler(async (req, res) => {
 
 exports.find_product = asyncHandler(async (req, res) => {
     let query = {};
+
     let transUndefined = (varQuery, otherResult) => {
         return varQuery != "undefined" && varQuery ? varQuery : otherResult;
     };
@@ -66,11 +67,20 @@ exports.find_product = asyncHandler(async (req, res) => {
         res.status(200).json({message: "There is no data"})
     }
 
-    return await res.status(200).json({
-        product: await Promise.all(products.map(async product => {
-            return await product.toProductResponse();
-        })),  product_count: product_count
-    });
+    if (req.loggedin) {
+        const loginUser = await User.findById(req.userId).exec();
+        return await res.status(200).json({
+            product: await Promise.all(products.map(async product => {
+                return await product.toProductResponse(loginUser);
+            })),  product_count: product_count
+        });
+    } else {
+        return await res.status(200).json({
+            product: await Promise.all(products.map(async product => {
+                return await product.toProductResponse();
+            })),  product_count: product_count
+        });
+    }
 })
 
 exports.findOneProduct = asyncHandler(async (req, res) => {
@@ -166,7 +176,7 @@ exports.favoriteProduct = asyncHandler(async (req, res) => {
 
     const updatedProduct = await product.updateFavoriteCount();
 
-    return res.status(401).json({
+    return res.status(200).json({
         product: await updatedProduct.toProductResponse()
     })
 })
@@ -196,7 +206,7 @@ exports.unfavoriteProduct = asyncHandler(async (req, res) => {
 
     const updatedProduct = await product.updateFavoriteCount();
 
-    return res.status(401).json({
+    return res.status(200).json({
         product: await updatedProduct.toProductResponse()
     })
 })

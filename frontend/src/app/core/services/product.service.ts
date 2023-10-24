@@ -31,4 +31,12 @@ export class ProductService {
     return this.apiService
       .getNormal('/products/', slug)
   }
+
+  favorite(slug: string): Observable<{product: Product[], product_count: number}> {
+    return this.apiService.put('/products/' + slug + '/favorite');
+  }
+
+  unfavorite(slug: string): Observable<{product: Product[], product_count: number}> {
+    return this.apiService.delete('/products/' + slug + '/favorite');
+  }
 }

@@ -55,7 +55,8 @@ productSchema.methods.updateFavoriteCount = async function () {
     return this.save();
 }
 
-productSchema.methods.toProductResponse = async function () {
+productSchema.methods.toProductResponse = async function (user) {
+    const authorObj = await User.findById(this.author).exec();
     return {
         slug: this.slug,
         product_name: this.product_name,
@@ -63,6 +64,8 @@ productSchema.methods.toProductResponse = async function () {
         product_img: this.product_img,
         favouritesCount: this.favouritesCount,
         comments: this.comments,
+        favorited: user ? user.isFavourite(this._id) : false,
+        author: this.author,
         id_category: this.id_category
     }
 }
