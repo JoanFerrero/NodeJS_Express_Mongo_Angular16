@@ -14,6 +14,8 @@ import { SearchComponent } from './search/search.component';
 import { FiltersComponent } from './filters/filters.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ShowAuthedDirective } from './show-authed.directive';
+import { LikesComponent } from './button/likes/likes.component';
+import { FollowsComponent } from './button/follows/follows.component';
 
 
 @NgModule({
@@ -24,7 +26,7 @@ import { ShowAuthedDirective } from './show-authed.directive';
     HttpClientModule,
     RouterModule,
     InfiniteScrollModule,
-    MdbCarouselModule
+    MdbCarouselModule,
   ],
   declarations: [
     ListCategoryComponent,
@@ -34,7 +36,9 @@ import { ShowAuthedDirective } from './show-authed.directive';
     SearchComponent,
     FiltersComponent,
     PaginationComponent,
-    ShowAuthedDirective
+    ShowAuthedDirective,
+    LikesComponent,
+    FollowsComponent
   ],
   exports: [
     ListCategoryComponent,

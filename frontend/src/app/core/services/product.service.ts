@@ -33,7 +33,7 @@ export class ProductService {
   }
 
   favorite(slug: string): Observable<{product: Product[], product_count: number}> {
-    return this.apiService.put('/products/' + slug + '/favorite');
+    return this.apiService.post('/products/' + slug + '/favorite');
   }
 
   unfavorite(slug: string): Observable<{product: Product[], product_count: number}> {

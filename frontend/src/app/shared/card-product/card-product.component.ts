@@ -23,9 +23,11 @@ export class CardProductComponent {
   like: Boolean = true;
   numLike: number = 0;
   isLoged: Boolean = false;
+  favorited: Boolean = false;
 
   ngOnInit(): void {
     this.numLike = this.value.favouritesCount;
+    this.favorited = this.value.favorited;
     if(this.value.favorited) {
       this.like = true;
     } else {
@@ -33,34 +35,8 @@ export class CardProductComponent {
     }
   }
 
-  toggleFavorite() {
-    this.userService.isAuthenticated.subscribe({
-      next: data => this.isLoged = data,
-      error: error => console.error(error)
-    });
-    if(this.isLoged) {
-      if(this.value.favorited) {
-        this.productService.unfavorite(this.value.slug)
-        .subscribe(data => {
-            this.numLike = this.numLike - 1;
-            this.value.favorited = false
-            this.like = false;
-            //this.ToastrService.success("Dislike succesfully!");
-          }
-          );
-      } else {
-        this.productService.favorite(this.value.slug)
-        .subscribe(data => {
-            this.numLike = this.numLike + 1;
-            this.value.favorited = true
-            this.like = true;
-            //this.ToastrService.success("Like succesfully!");
-          }
-        );
-      }
-    } else {
-      this.ToastrService.error('You must be loged. You eill be redirect to the login page');
-      setTimeout(() => { this.router.navigate(['/login']); }, 600);
-    }
-  };
+  get_like(favorite: boolean) {
+    this.value.favorited = favorite
+    this.like = favorite;
+  }
 }

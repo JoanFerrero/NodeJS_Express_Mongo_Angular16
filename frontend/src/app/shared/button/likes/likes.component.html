@@ -1,0 +1,5 @@
+<div class="d-flex justify-content-end">
+    <h5>{{numLike}}</h5>
+    <i *ngIf="value.favorited" (click)="toggleFavorite()" style='color:red;' class="bi bi-heart-fill"></i>
+    <i *ngIf="!value.favorited" (click)="toggleFavorite()" style='color:gray;' class="bi bi-heart-fill"></i>
+  </div>

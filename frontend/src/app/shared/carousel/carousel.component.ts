@@ -34,6 +34,7 @@ export class CarouselComponent {
   }
 
   getProductImg() {
+    console.log(this.slug)
     this.carouselService.getCarouselProduct(this.slug)
     .subscribe(data => {
       this.carouselI = data.product.img;

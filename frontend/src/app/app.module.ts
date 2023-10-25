@@ -8,6 +8,9 @@ import { HeaderComponent, FooterComponent } from './shared/layout/index';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
+
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
       maxOpened: 2,
       progressBar: true,
     }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
