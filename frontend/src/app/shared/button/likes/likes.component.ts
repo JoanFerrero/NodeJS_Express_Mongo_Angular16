@@ -1,7 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product, ProductService, UserService } from 'src/app/core';
-import { concatMap ,  tap } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./likes.component.css']
 })
 export class LikesComponent {
-  @Output() likesEvent: EventEmitter<boolean> = new EventEmitter();
   @Input() value: Product = {} as Product;
 
   numLike: number = 0;
@@ -21,7 +18,6 @@ export class LikesComponent {
     private productService: ProductService,
     private userService: UserService,
     private router: Router,
-    private cd: ChangeDetectorRef,
     private ToastrService: ToastrService
   ){}
 
@@ -42,7 +38,7 @@ export class LikesComponent {
             this.value.favorited = false
             this.ToastrService.success("Dislike succesfully!");
           }
-          );
+        );
       } else {
         this.productService.favorite(this.value.slug)
         .subscribe(data => {
