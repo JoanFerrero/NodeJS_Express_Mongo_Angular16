@@ -65,7 +65,7 @@ productSchema.methods.toProductResponse = async function (user) {
         favouritesCount: this.favouritesCount,
         comments: this.comments,
         favorited: user ? user.isFavourite(this._id) : false,
-        author: this.author,
+        author: authorObj.toProfileJSON(user),
         id_category: this.id_category
     }
 }

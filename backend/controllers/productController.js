@@ -132,6 +132,26 @@ exports.find_product_name = asyncHandler(async (req, res) => {
     res.json(product.map((product) => product.toNameJSONFor()));
 
 })
+
+exports.updateProduct = asyncHandler(async (req, res) => {
+    const  userId  = req.userId;
+
+    const { slug } = req.params;
+
+    const loginUser = await User.findById(userId).exec();
+
+    const target = await Product.findOne({ slug: slug }).exec();
+
+    // console.log(target.title);
+    // console.log(req.userId);
+    target.author = userId;
+    
+
+    await target.save();
+    return res.status(200).json({
+        product: await target.toProductResponse(loginUser)
+    })
+})
   
 exports.delete_product = asyncHandler(async (req, res) => {
     const { slug } = req.params;
