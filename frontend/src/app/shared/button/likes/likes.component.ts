@@ -49,7 +49,7 @@ export class LikesComponent {
         );
       }
     } else {
-      this.ToastrService.error('You must be loged. You eill be redirect to the login page');
+      this.ToastrService.error('You must be loged. You will be redirect to the login page');
       setTimeout(() => { this.router.navigate(['/login']); }, 600);
     }
   };

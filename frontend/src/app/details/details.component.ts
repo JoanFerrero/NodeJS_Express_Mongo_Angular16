@@ -8,7 +8,7 @@ import { ProductService, Product } from 'src/app/core';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit{
-  product?: any;
+  product!: Product;
   //value: Product;
   slug: string | any;
 
@@ -25,6 +25,7 @@ export class DetailsComponent implements OnInit{
   getProduct(slug: string) {
     this.ProductService.getProduct(slug)
       .subscribe(data => {
+        console.log(data.product)
         this.product = data.product;
         //this.value = data.product;
       })

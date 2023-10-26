@@ -93,10 +93,16 @@ exports.findOneProduct = asyncHandler(async (req, res) => {
             message: "Product is Not Found"
         });
     }
-
-    return res.status(200).json({
-        product: await productOne.toProductResponse()
-    });
+    if (req.loggedin) {
+        const loginUser = await User.findById(req.userId).exec();
+        return res.status(200).json({
+            product: await productOne.toProductResponse(loginUser)
+        });
+    } else {
+        return res.status(200).json({
+            product: await productOne.toProductResponse()
+        });
+    }
 })
 
 exports.find_products_category = asyncHandler(async (req, res) => {

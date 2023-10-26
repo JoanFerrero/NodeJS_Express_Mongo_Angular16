@@ -58,6 +58,7 @@ userSchema.methods.toUserResponse = function() {
         bio: this.bio,
         image: this.image,
         favouriteProduct: this.favouriteProduct,
+        followingUsers: this.followingUsers,
         token: this.generateAccessToken()
     }
 };

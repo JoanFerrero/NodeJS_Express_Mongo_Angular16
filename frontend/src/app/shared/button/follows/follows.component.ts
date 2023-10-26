@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product, ProfileService, UserService } from 'src/app/core';
+import { Product, Profile, ProfileService, User, UserService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -12,6 +12,8 @@ export class FollowsComponent {
 
   isLoged: Boolean = false;
   isfollow: Boolean = false;
+  myProduct: Boolean = false;
+  userLog: User = {} as User;
 
   constructor(
     private userService: UserService,
@@ -23,13 +25,23 @@ export class FollowsComponent {
 
   ngOnInit(): void {
     this.isfollow = this.value.author.following;
-  }
-
-  toggleFavorite() {
     this.userService.isAuthenticated.subscribe({
       next: data => this.isLoged = data,
       error: error => console.error(error)
     });
+    if(this.isLoged) {
+      this.userService.currentUser.subscribe(
+        data => {
+          this.userLog = data;
+          console.log(this.userLog)
+      });
+      if(this.value.author.username === this.userLog.username) {
+        this.myProduct = true;
+      }
+    }
+  }
+
+  toggleFavorite() {
     if(this.isLoged) {
       if(this.isfollow) {
         this.profileService.unfollow(this.value.author.username)
@@ -49,7 +61,7 @@ export class FollowsComponent {
       }
       
     } else {
-      this.ToastrService.error('You must be loged. You eill be redirect to the login page');
+      this.ToastrService.error('You must be loged. You will be redirect to the login page');
       setTimeout(() => { this.router.navigate(['/login']); }, 600);
     }
   }

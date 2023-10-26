@@ -16,6 +16,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { LikesComponent } from './button/likes/likes.component';
 import { FollowsComponent } from './button/follows/follows.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 @NgModule({
@@ -38,13 +39,17 @@ import { FollowsComponent } from './button/follows/follows.component';
     PaginationComponent,
     ShowAuthedDirective,
     LikesComponent,
-    FollowsComponent
+    FollowsComponent,
+    CommentsComponent
   ],
   exports: [
     ListCategoryComponent,
     ListProductsComponent,
     CardProductComponent,
     CarouselComponent,
+    LikesComponent,
+    FollowsComponent,
+    CommentsComponent,
     ShowAuthedDirective
   ]
 })
