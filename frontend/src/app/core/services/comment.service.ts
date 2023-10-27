@@ -19,4 +19,8 @@ export class CommentService {
   create(slug: String, data: any): Observable<any> {
     return this.apiService.post('/product/' + slug + '/comment', data);
   }
+
+  destroy(commentId: String, articleSlug: String) {
+    return this.apiService.delete(`/product/${articleSlug}/comment/${commentId}`);
+  }
 }

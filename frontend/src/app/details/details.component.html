@@ -4,7 +4,7 @@
     <h5 class="card-title">{{product.product_name}}</h5>
     <p class="card-text">{{product.product_price}} €</p>
     <app-likes [value]="product"></app-likes>
-    <app-follows [value]="product"></app-follows>
+    <app-follows [value]="product.author"></app-follows>
   </div>
 </div>
 <app-comments [value]="product"></app-comments>

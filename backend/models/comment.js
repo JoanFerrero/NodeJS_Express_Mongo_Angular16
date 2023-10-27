@@ -5,9 +5,7 @@ const User = require('./user')
     
 const commentSchema = new mongoose.Schema({
     body: {
-        type: String, 
-        lowercase: true, 
-        unique: true
+        type: String
     },
     author: { 
         type: mongoose.Schema.Types.ObjectId, 

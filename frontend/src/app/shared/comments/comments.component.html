@@ -13,11 +13,10 @@
 
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-row align-items-center">
-                <img src={{comment.author.image}} alt="avatar" width="25"
-                  height="25" />
                 <p class="small mb-0 ms-2">{{comment.author.username}}</p>
               </div>
-              <app-follows [value]="value"></app-follows>
+              <button *ngIf="comment.author.username === userLog.username" (click)="toggleComment(comment.id)" type="button" class="btn btn-danger">Delete</button>
+              <app-follows [value]="comment.author"></app-follows>
             </div>
           </div>
         </div>

@@ -38,7 +38,7 @@ exports.addCommentAuthor = asyncHandler(async (req, res) => {
         product: product._id
     });
 
-    await product.addComment(newComment._id)
+    await product.addComment(newComment._id);
 
     return res.status(200).json({
         comment: await newComment.toCommentResponse(commenter)

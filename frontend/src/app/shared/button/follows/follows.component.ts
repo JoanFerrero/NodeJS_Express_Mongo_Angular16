@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./follows.component.css']
 })
 export class FollowsComponent {
-  @Input() value: Product = {} as Product;
+  @Input() value: Profile = {} as Profile;
 
   isLoged: Boolean = false;
   isfollow: Boolean = false;
@@ -24,7 +24,7 @@ export class FollowsComponent {
 
 
   ngOnInit(): void {
-    this.isfollow = this.value.author.following;
+    this.isfollow = this.value.following;
     this.userService.isAuthenticated.subscribe({
       next: data => this.isLoged = data,
       error: error => console.error(error)
@@ -33,9 +33,8 @@ export class FollowsComponent {
       this.userService.currentUser.subscribe(
         data => {
           this.userLog = data;
-          console.log(this.userLog)
       });
-      if(this.value.author.username === this.userLog.username) {
+      if(this.value.username === this.userLog.username) {
         this.myProduct = true;
       }
     }
@@ -44,14 +43,14 @@ export class FollowsComponent {
   toggleFavorite() {
     if(this.isLoged) {
       if(this.isfollow) {
-        this.profileService.unfollow(this.value.author.username)
+        this.profileService.unfollow(this.value.username)
           .subscribe(data => {
             this.isfollow = false;
             this.ToastrService.success("UnFollow succesfully!");
           }
         );
       } else {
-        this.profileService.follow(this.value.author.username)
+        this.profileService.follow(this.value.username)
           .subscribe(data => {
             this.isfollow = true;
             this.ToastrService.success("Follow succesfully!");

@@ -25,8 +25,8 @@ export class DetailsComponent implements OnInit{
   getProduct(slug: string) {
     this.ProductService.getProduct(slug)
       .subscribe(data => {
-        console.log(data.product)
         this.product = data.product;
+        console.log(this.product.author.image)
         //this.value = data.product;
       })
   }

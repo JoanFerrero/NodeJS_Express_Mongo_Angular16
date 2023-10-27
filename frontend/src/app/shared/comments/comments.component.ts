@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CommentService, UserService } from 'src/app/core';
+import { CommentService, User, UserService } from 'src/app/core';
 import { Comment, Product } from 'src/app/core';
 
 @Component({
@@ -17,6 +17,7 @@ export class CommentsComponent {
   comments: Comment[] = [];
   commentForm: FormGroup;
   isLoged: Boolean = false;
+  userLog: User = {} as User;
 
   constructor(
     private CommentService: CommentService,
@@ -32,23 +33,33 @@ export class CommentsComponent {
   }
 
   ngOnInit(): void {
-    this.getComments()
+    this.getComments();
+    this.authentificate();
+  }
+
+  authentificate() {
+    this.userService.isAuthenticated.subscribe(
+      data => {
+        this.isLoged = data
+    });
+    if(this.isLoged) {
+      this.userService.currentUser.subscribe(
+        data => {
+          this.userLog = data;
+      })
+    }
   }
 
   getComments() {
     const slug: any = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.CommentService.getAll(slug).subscribe(
       data => {
+        console.log(data)
         this.comments = data.comments;
     });
   }
 
   submitForm() {
-    console.log(this.commentForm.value)
-    this.userService.isAuthenticated.subscribe({
-      next: data => this.isLoged = data,
-      error: error => console.error(error)
-    });
     if(this.isLoged) { 
       this.createComment(this.commentForm.value);
     } else {
@@ -62,10 +73,17 @@ export class CommentsComponent {
     const slug: any = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.CommentService.create(slug, data_form).subscribe(
       data => {
-        this.comments.push(data.comment);
+        this.comments.unshift(data.comment);
       }
     )
+  }
 
-  }//createComment
+  toggleComment(id: String) {
+    const slug: any = this.ActivatedRoute.snapshot.paramMap.get('slug');
+    this.CommentService.destroy(id, slug).subscribe(
+      data => {
+        this.comments = this.comments.filter(c => c.id !== id);
+    })
+  }
 
 }
