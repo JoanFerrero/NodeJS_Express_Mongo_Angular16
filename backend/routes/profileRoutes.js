@@ -5,7 +5,7 @@ const verifyJWT = require('../middleware/verifyJWT');
 const verifyJWTOptional = require('../middleware/verifyJWTOptional');
 
 // Get profile - authentication optional
-router.get('/:username',verifyJWTOptional, profileController.getProfile);
+router.get('/:username', verifyJWTOptional , profileController.getProfile);
 
 // Follow a user
 router.post('/:username/follow', verifyJWT, profileController.followUser);

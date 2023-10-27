@@ -16,7 +16,6 @@
                 <p class="small mb-0 ms-2">{{comment.author.username}}</p>
               </div>
               <button *ngIf="comment.author.username === userLog.username" (click)="toggleComment(comment.id)" type="button" class="btn btn-danger">Delete</button>
-              <app-follows [value]="comment.author"></app-follows>
             </div>
           </div>
         </div>

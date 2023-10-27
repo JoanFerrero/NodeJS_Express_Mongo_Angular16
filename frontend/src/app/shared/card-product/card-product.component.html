@@ -4,8 +4,8 @@
     <div class="d-flex justify-content-between mb-2">
       <h5 class="mb-0" [routerLink]="['/details/', value.slug]">{{value.product_name}}</h5>
       <h5 class="text-dark mb-0">{{value.product_price}} €</h5>
+      <img height="40" class="rounded-circle" src={{value.author.image}} [routerLink]="['/profile/', value.author.username]">
     </div>
     <app-likes [value]="value"></app-likes>
-    <app-follows [value]="value.author"></app-follows>
   </div>
 </div>
