@@ -236,3 +236,58 @@ exports.unfavoriteProduct = asyncHandler(async (req, res) => {
         product: await updatedProduct.toProductResponse()
     })
 })
+
+exports.get_user_products = asyncHandler(async (req, res) => {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username }).exec();
+
+    if(!user) {
+        return res.status(401).json({
+            message: "User Not Found"
+        })
+    }
+
+    const products = await Product.find({ author: user._id }).exec();
+    const product_count = await Product.find({ author: user._id }).countDocuments();
+
+    return await res.status(200).json({
+        product: await Promise.all(products.map(async product => {
+            return await product.toProductResponse(user);
+        })),  product_count: product_count
+    });
+})//get_user_products
+
+exports.get_likes = asyncHandler(async (req, res) => {
+    const email = req.userEmail;    
+
+    const user = await User.findOne({ email }).populate({ path: 'favouriteProduct', populate: { path: 'author'} }).exec();
+    const user_toLike = await User.findOne({ email }).exec()
+
+    if(!user) {
+        return res.status(401).json({
+            message: "User Not Found"
+        })
+    }
+
+    return await res.status(200).json({
+        product: await Promise.all(user.favouriteProduct.map(async product => {
+            return await product.toProductResponse(user_toLike);
+        }))
+    });
+})//get_user_products
+
+async function get_likes(req, res) {
+    try {
+        const user = await User.findOne({ id: req.auth.id }).populate({ path: 'favouriteProduct', populate: { path: 'author', select: 'username image -_id' } });
+        const user_toLike = await User.findOne({ id: req.auth.id });
+        if (user) {
+            res.json(user.likes.map(m => m.toLikeJSON(user_toLike)));
+        } else {
+            res.status(404).json(FormatError("User not found", res.statusCode))
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+    }
+}//get_likes

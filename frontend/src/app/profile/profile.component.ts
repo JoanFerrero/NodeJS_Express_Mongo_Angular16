@@ -27,6 +27,6 @@ export class ProfileComponent implements OnInit{
             this.isUser = (data.username === this.profile.username)
           }
         )
-      });//get profile
+      });
   }
 }

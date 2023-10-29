@@ -3,10 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileLikesComponent } from './profile-likes/profile-likes.component';
+import { ProfileProductsComponent } from './profile-products/profile-products.component';
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    ProfileLikesComponent,
+    ProfileProductsComponent
   ],
   imports: [
     CommonModule,

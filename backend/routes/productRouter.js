@@ -14,5 +14,6 @@ router.put('/:slug/update', verifyJWT, productController.updateProduct);
 router.post('/:slug/favorite', verifyJWT, productController.favoriteProduct);
 router.delete('/:slug/favorite', verifyJWT, productController.unfavoriteProduct);
 router.delete('/:slug', productController.delete_product);
+router.get('/:username/products', verifyJWTOptional, productController.get_user_products);
 
 module.exports = router;

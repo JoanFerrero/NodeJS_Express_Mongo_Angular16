@@ -39,4 +39,12 @@ export class ProductService {
   unfavorite(slug: string): Observable<{product: Product[], product_count: number}> {
     return this.apiService.delete('/products/' + slug + '/favorite');
   }
+
+  all_products_user(username: string): Observable<{product: Product[]}>  {
+    return this.apiService.get('/products/' + username + '/products');
+  }
+
+  all_products_user_like(): Observable<{product: Product[]}>  {
+    return this.apiService.get('/user/likes');
+  }
 }
