@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://static.productionready.io/images/smiley-cyrus.jpg"
     },
+    followersUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     followingUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -58,6 +62,7 @@ userSchema.methods.toUserResponse = function() {
         bio: this.bio,
         image: this.image,
         favouriteProduct: this.favouriteProduct,
+        followersUsers: this.followersUsers,
         followingUsers: this.followingUsers,
         token: this.generateAccessToken()
     }
@@ -119,6 +124,20 @@ userSchema.methods.unfollow = function (id) {
     }
     return this.save();
 };
+
+userSchema.methods.followers = function (id) {
+    if(this.followersUsers.indexOf(id) === -1){
+        this.followersUsers.push(id);
+    }
+    return this.save();
+}
+
+userSchema.methods.unfollowers = function (id) {
+    if(this.followersUsers.indexOf(id) !== -1){
+        this.followersUsers.push(id);
+    }
+    return this.save();
+}
 
 
 module.exports = mongoose.model('User', userSchema);
