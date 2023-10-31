@@ -15,7 +15,6 @@ export class ProfileProductsComponent implements OnInit {
   constructor(
     private ProductService: ProductService,
     private route: ActivatedRoute,
-    private router: Router,
     private cd: ChangeDetectorRef
   ) { }
 
@@ -25,13 +24,15 @@ export class ProfileProductsComponent implements OnInit {
         this.profile = data['profile'].profile as Profile;
         this.getProducts();
         this.cd.markForCheck();
-      });
+      }
+    );
   }
 
   getProducts() {
     this.ProductService.all_products_user(this.profile.username).subscribe(
       data => {
         this.products = data.product;
-      });
+      }
+    );
   } 
 }

@@ -5,12 +5,14 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileLikesComponent } from './profile-likes/profile-likes.component';
 import { ProfileProductsComponent } from './profile-products/profile-products.component';
+import { ProfileFollowComponent } from './profile-follow/profile-follow.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     ProfileLikesComponent,
-    ProfileProductsComponent
+    ProfileProductsComponent,
+    ProfileFollowComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,25 @@
+
+<div class="content">
+    <div class="left">
+        <p class="title">Follows</p>
+        <div class="card mt-2" *ngFor="let follow of follows">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <p>{{follow.username}}</p>
+                <img height="40" class="rounded-circle" src={{follow.image}}>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <p class="title">Following</p>
+        <div class="card mt-2" *ngFor="let followin of following">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <p>{{followin.username}}</p>
+                <img height="40" class="rounded-circle" src={{followin.image}}>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

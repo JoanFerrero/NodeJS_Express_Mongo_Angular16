@@ -5,6 +5,7 @@ import { ProfileResolver } from './profile-resolve.service';
 import { ProfileLikesComponent } from './profile-likes/profile-likes.component';
 import { ProfileProductsComponent } from './profile-products/profile-products.component';
 import { AuthGuard } from '../core/guard';
+import { ProfileFollowComponent } from './profile-follow/profile-follow.component';
 
 const routes: Routes = [
   {
@@ -16,12 +17,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProfileProductsComponent
+        component: ProfileProductsComponent,
       },
       {
         path: 'favorites',
         component: ProfileLikesComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'follows/:username',
+        component: ProfileFollowComponent,
+        resolve: {
+          profile: ProfileResolver
+        },
       }
     ]
   }
