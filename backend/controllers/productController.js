@@ -144,37 +144,63 @@ exports.updateProduct = asyncHandler(async (req, res) => {
 
     const { slug } = req.params;
 
+    const { product } = req.body;
+
     const loginUser = await User.findById(userId).exec();
 
     const target = await Product.findOne({ slug: slug }).exec();
 
-    // console.log(target.title);
-    // console.log(req.userId);
-    target.author = userId;
-    
+    if(product.product_name) {
+        target.product_name = product.product_name;
+    }
 
-    await target.save();
-    return res.status(200).json({
-        product: await target.toProductResponse(loginUser)
-    })
+    if(product.product_price) {
+        target.product_price = product.product_price;
+    }
+    
+    if(target.author.toString() === loginUser._id.toString()) {
+        await target.save();
+        return res.status(200).json({
+            product: await target.toProductResponse(loginUser)
+        })
+    } else {
+        res.status(403).json({
+            message: "Only the author can update his product"
+        })
+    }
 })
   
 exports.delete_product = asyncHandler(async (req, res) => {
+    const id = req.userId;
+
     const { slug } = req.params;
 
-    const product = await Product.findOne({slug: slug}).exec();
+    const loginUser = await User.findById(id).exec();
 
-    if(!product) {
+    if(!loginUser) {
         return res.status(401).json({
-            message: "Product Not Forund"
+            message: "User Not Found"
         })
     }
 
-    //await categoryFind.removeProduct(product._id)
-    await Product.deleteOne({slug: slug})
-    res.status(200).json({
-        message: "Product succesfully deleted!"
-    })
+    const product = await Product.findOne({slug}).exec();
+
+    if(!product) {
+        return res.status(401).json({
+            message: "Product Not Found"
+        })
+    }
+
+    if(product.author.toString() === loginUser._id.toString()) {
+        await Product.deleteOne({slug: slug})
+        res.status(200).json({
+            message: "Product succesfully deleted!"
+        })
+    } else {
+        res.status(403).json({
+            message: "Only the author can delete his product"
+        })
+    }
 })
 
 exports.favoriteProduct = asyncHandler(async (req, res) => {
@@ -256,7 +282,7 @@ exports.get_user_products = asyncHandler(async (req, res) => {
             return await product.toProductResponse(user);
         })),  product_count: product_count
     });
-})//get_user_products
+})
 
 exports.get_likes = asyncHandler(async (req, res) => {
     const email = req.userEmail;    
@@ -275,19 +301,4 @@ exports.get_likes = asyncHandler(async (req, res) => {
             return await product.toProductResponse(user_toLike);
         }))
     });
-})//get_user_products
-
-async function get_likes(req, res) {
-    try {
-        const user = await User.findOne({ id: req.auth.id }).populate({ path: 'favouriteProduct', populate: { path: 'author', select: 'username image -_id' } });
-        const user_toLike = await User.findOne({ id: req.auth.id });
-        if (user) {
-            res.json(user.likes.map(m => m.toLikeJSON(user_toLike)));
-        } else {
-            res.status(404).json(FormatError("User not found", res.statusCode))
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
-    }
-}//get_likes
+})

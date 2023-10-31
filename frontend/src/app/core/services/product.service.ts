@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { Product } from '../models/product.model';
-import { Filters } from '../models';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +46,13 @@ export class ProductService {
 
   all_products_user_like(): Observable<{product: Product[]}>  {
     return this.apiService.get('/user/likes');
+  }
+
+  save(product: Product): Observable<Product> {
+    return this.apiService.put('/products/update/' + product.slug, { product: product });
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete('/products/' + slug);
   }
 }

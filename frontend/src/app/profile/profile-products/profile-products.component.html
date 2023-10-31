@@ -1,4 +1,4 @@
 <div *ngIf="products.length == 0">No products</div>
 <div *ngIf="products">
-    <app-card-product *ngFor="let product of products" [value]="product"></app-card-product>
+    <app-card-product (deleteEvent)="get_slug_delete($event)" *ngFor="let product of products" [value]="product" page="profile"></app-card-product>
 </div>

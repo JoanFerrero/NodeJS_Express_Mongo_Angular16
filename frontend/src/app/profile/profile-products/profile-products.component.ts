@@ -35,4 +35,8 @@ export class ProfileProductsComponent implements OnInit {
       }
     );
   } 
+
+  get_slug_delete(slug: string) {
+    this.products = this.products.filter(c => c.slug !== slug);
+  }
 }

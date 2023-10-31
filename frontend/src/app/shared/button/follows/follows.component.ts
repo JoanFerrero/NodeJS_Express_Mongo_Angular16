@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product, Profile, ProfileService, User, UserService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-follows',
   templateUrl: './follows.component.html',

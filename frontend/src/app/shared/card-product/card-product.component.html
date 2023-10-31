@@ -6,6 +6,8 @@
       <h5 class="text-dark mb-0">{{value.product_price}} €</h5>
       <img height="40" class="rounded-circle" src={{value.author.image}} [routerLink]="['/profile/', value.author.username]">
     </div>
+    <button *ngIf="myProduct" class="btn btn-primary" [routerLink]="['/editor/', value.slug]">Update</button>
+    <button *ngIf="myProduct" class="btn btn-danger" (click)="onDelete(value.slug)">Delete</button>
     <app-likes [value]="value"></app-likes>
   </div>
 </div>
