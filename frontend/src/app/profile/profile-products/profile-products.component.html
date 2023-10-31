@@ -1,3 +1,7 @@
+<div *ngIf="isUser">
+    <i class="bi bi-plus-circle-fill p-3" [routerLink]="['/creator']"></i>
+</div>
+
 <div *ngIf="products.length == 0">No products</div>
 <div *ngIf="products">
     <app-card-product (deleteEvent)="get_slug_delete($event)" *ngFor="let product of products" [value]="product" page="profile"></app-card-product>

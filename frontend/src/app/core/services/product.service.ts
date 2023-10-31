@@ -52,6 +52,10 @@ export class ProductService {
     return this.apiService.put('/products/update/' + product.slug, { product: product });
   }
 
+  create(product: any): Observable<Product> {
+    return this.apiService.post('/products', product );
+  }
+
   destroy(slug: string) {
     return this.apiService.delete('/products/' + slug);
   }

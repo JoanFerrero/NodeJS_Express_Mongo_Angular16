@@ -5,7 +5,7 @@ const verifyJWT = require('../middleware/verifyJWT')
 const verifyJWTOptional = require('../middleware/verifyJWTOptional')
 
 
-router.post('/:slug', productController.create_product);
+router.post('/', verifyJWT , productController.create_product);
 router.get('/', verifyJWTOptional , productController.find_product);
 router.get('/category/:slug', productController.find_products_category);
 router.get('/:slug', verifyJWTOptional , productController.findOneProduct);

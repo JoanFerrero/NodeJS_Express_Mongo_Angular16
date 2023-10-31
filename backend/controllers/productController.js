@@ -4,17 +4,25 @@ const Category = require('../models/category');
 const asyncHandler = require('express-async-handler')
 
 exports.create_product = asyncHandler(async (req, res) => {
-    const { product_name, product_img, product_price, id_category} = req.body;
+    const  userId  = req.userId;
 
-    const { slug } = req.params;
+    const loginUser = await User.findById(userId).exec();
+
+    if(!loginUser) {
+        return res.status(401).json({
+            message: "User Not Found"
+        })
+    }
+
+    const { product_name, product_price, category_name} = req.body;
     
-    if(!product_name || !product_img || !product_price || !id_category) {
+    if(!product_name || !product_price || !category_name) {
         return res.status(400).json({
             message: "All data is required"
         });
     }
 
-    const categoryFind = await Category.findOne({slug}).exec();
+    const categoryFind = await Category.findOne({category_name: category_name}).exec();
 
     if(!categoryFind) {
         return res.status(401).json({
@@ -25,8 +33,9 @@ exports.create_product = asyncHandler(async (req, res) => {
     const newProduct =  await Product.create({
         product_name,
         product_price,
-        product_img,
-        id_category
+        product_img: ['coche1', 'coche2', 'coche3'],
+        author: loginUser._id,
+        id_category: categoryFind._id
     });
 
     await categoryFind.addProduct(newProduct._id);
@@ -147,6 +156,12 @@ exports.updateProduct = asyncHandler(async (req, res) => {
     const { product } = req.body;
 
     const loginUser = await User.findById(userId).exec();
+
+    if(!loginUser) {
+        return res.status(401).json({
+            message: "User Not Found"
+        })
+    }
 
     const target = await Product.findOne({ slug: slug }).exec();
 

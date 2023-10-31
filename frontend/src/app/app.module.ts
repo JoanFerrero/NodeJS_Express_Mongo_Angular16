@@ -9,10 +9,6 @@ import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { ProfileComponent } from './profile/profile.component';
-import { EditorComponent } from './editor/editor.component';
-
-
 
 @NgModule({
   declarations: [

@@ -1,0 +1,41 @@
+<div class="settings-page">
+    <div class="container page">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-xs-center">Create a Product</h1>
+          <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+            <fieldset [disabled]="isSubmitting">
+              
+              <fieldset class="form-group">
+                <input class="form-control form-control-lg"
+                  type="text"
+                  placeholder="Name"
+                  formControlName="product_name" 
+                  />
+              </fieldset>
+  
+              <fieldset class="form-group">
+                <input class="form-control form-control-lg"
+                  type="number"
+                  placeholder="Price"
+                  formControlName="product_price" />
+              </fieldset>
+
+              <fieldset class="form-group">
+                <select class="form-control form-control-lg" formControlName="category_name">
+                    <option disabled value="" selected ></option>
+                    <option *ngFor="let category of listCategories">{{category.category_name}}</option>
+                </select>
+              </fieldset>
+  
+              <button class="btn btn-lg btn-primary pull-xs-right"
+                type="submit">
+                Update Product
+              </button>
+  
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

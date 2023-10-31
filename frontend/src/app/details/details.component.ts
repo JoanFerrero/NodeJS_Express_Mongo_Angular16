@@ -9,7 +9,6 @@ import { ProductService, Product } from 'src/app/core';
 })
 export class DetailsComponent implements OnInit{
   product!: Product;
-  //value: Product;
   slug: string | any;
 
   constructor (
@@ -26,8 +25,6 @@ export class DetailsComponent implements OnInit{
     this.ProductService.getProduct(slug)
       .subscribe(data => {
         this.product = data.product;
-        console.log(this.product.author.image)
-        //this.value = data.product;
       })
   }
 }
