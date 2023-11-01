@@ -40,7 +40,7 @@ Es necesario crear el fichero .env en la carpeta backend. El contenido puede ser
 Tener instalado las siguientes herramientas:
 
 - [NodeJS](https://nodejs.org/en/download/) v18.18.0
-- [Angular](https://angularjs.org) v16
+- [Angular](https://angular.io/) v16
 - [MongoDB](https://www.mongodb.com/try/download/community)
 
 ### `Puesta en marcha`
@@ -83,7 +83,7 @@ Lista de tecnologías utilizadas en este proyecto:
 
 `Frontend` 🏛️
 
-- [Angular](https://angularjs.org): V16
+- [Angular](https://angular.io/): V16
   - TypeScript
   - Estructurado en Modules, Shared y Core
   - Routes
