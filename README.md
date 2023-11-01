@@ -83,7 +83,7 @@ Lista de tecnologías utilizadas en este proyecto:
 
 `Frontend` 🏛️
 
-- [Angular](https://angularjs.org): V13
+- [Angular](https://angularjs.org): V16
   - TypeScript
   - Estructurado en Modules, Shared y Core
   - Routes
