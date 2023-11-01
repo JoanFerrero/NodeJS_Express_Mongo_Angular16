@@ -41,7 +41,7 @@ exports.create_product = asyncHandler(async (req, res) => {
     await categoryFind.addProduct(newProduct._id);
 
     return res.status(200).json({
-        product: await newProduct.toProductResponse()
+        product: await newProduct.toProductResponse(loginUser)
     });
 })
 

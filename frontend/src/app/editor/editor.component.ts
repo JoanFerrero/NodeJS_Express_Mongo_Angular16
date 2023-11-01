@@ -42,11 +42,16 @@ export class EditorComponent implements OnInit{
   submitForm() {
     this.isSubmitting = true;
     this.updateProduct(this.productForm.value)
-
     this.productService.save(this.product).subscribe(
-      data => {
-        this.ToastrService.success("Update succesfully!");
-        this.router.navigateByUrl('/profile/' + this.product.author.username)
+      {
+        next: data => {
+          this.ToastrService.success("Update " + this.product.product_name + " succesfully");
+          this.router.navigateByUrl('/profile/' + this.product.author.username);
+        },
+        error: e => {
+          this.ToastrService.error("Please try again, data incorrect");
+          this.isSubmitting = false;
+        }
       }
     );
   }

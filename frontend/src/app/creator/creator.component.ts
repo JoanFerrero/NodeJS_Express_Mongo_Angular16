@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Category, CategoryService, Product, ProductService } from '../core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-creator',
@@ -21,7 +22,8 @@ export class CreatorComponent implements OnInit{
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private ToastrService: ToastrService
   ) {
     this.productForm = this.fb.group({
       product_name: '',
@@ -43,10 +45,15 @@ export class CreatorComponent implements OnInit{
 
   submitForm() {
     this.isSubmitting = true;
-    this.productService.create(this.productForm.value).subscribe(
-      data => {
-        this.router.navigateByUrl('/shop')
+    this.productService.create(this.productForm.value).subscribe({
+      next: data => {
+        this.ToastrService.success("Created the product " + data.product.product_name + " succesfully");
+        this.router.navigateByUrl('/profile/' + data.product.author.username);
+      },
+      error: e => {
+        this.ToastrService.error("Please try again, data incorrect");
+        this.isSubmitting = false;
       }
-    )
+    })
   }
 }

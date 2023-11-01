@@ -52,7 +52,7 @@ export class ProductService {
     return this.apiService.put('/products/update/' + product.slug, { product: product });
   }
 
-  create(product: any): Observable<Product> {
+  create(product: any): Observable<{product: Product}>{
     return this.apiService.post('/products', product );
   }
 

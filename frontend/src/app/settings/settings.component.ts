@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 import { User, UserService } from '../core';
 
 @Component({
@@ -19,7 +19,8 @@ export class SettingsComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private ToastrService: ToastrService
   ) {
     this.settingsForm = this.fb.group({
       image: '',
@@ -45,16 +46,16 @@ export class SettingsComponent implements OnInit {
     this.isSubmitting = true;
     this.updateUser(this.settingsForm.value);
 
-    this.userService
-    .update(this.user)
-    .subscribe(
-      updatedUser => this.router.navigateByUrl('/'),
-      err => {
-        this.errors = err;
+    this.userService.update(this.user).subscribe({
+      next: data => {
+        this.ToastrService.success("Update " + this.user.username + " succesfully");
+        this.router.navigateByUrl('/profile/' + this.user.username);
+      },
+      error: e => {
+        this.ToastrService.error("Please try again, data incorrect");
         this.isSubmitting = false;
-        this.cd.markForCheck();
       }
-    );
+    });
   }
 
   updateUser(values: Object) {
